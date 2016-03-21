@@ -32,24 +32,20 @@
   </entry>
   
   <entry>
-    <title></title>
+    <title>My New Post</title>
     <link href="http://yoursite.com/2016/03/20/My-New-Post/"/>
     <id>http://yoursite.com/2016/03/20/My-New-Post/</id>
-    <published>2016-03-20T14:06:27.050Z</published>
-    <updated>2016-03-21T05:49:39.973Z</updated>
+    <published>2016-03-20T14:06:27.000Z</published>
+    <updated>2016-03-21T05:55:46.168Z</updated>
     
-    <content type="html">&lt;hr&gt;
-&lt;p&gt;title: My New Post&lt;br&gt;date: 2016-03-20 22:06:27&lt;br&gt;tags:&lt;br&gt;—hexo&lt;/p&gt;
-</content>
+    <content type="html"></content>
     
     <summary type="html">
     
-      &lt;hr&gt;
-&lt;p&gt;title: My New Post&lt;br&gt;date: 2016-03-20 22:06:27&lt;br&gt;tags:&lt;br&gt;—hexo&lt;/p&gt;
-
-    
     </summary>
     
+    
+      <category term="hexo" scheme="http://yoursite.com/tags/hexo/"/>
     
   </entry>
   

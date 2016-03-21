@@ -10,11 +10,9 @@
     </entry>
     
     <entry>
-      <title></title>
+      <title><![CDATA[My New Post]]></title>
       <url>http://yoursite.com/2016/03/20/My-New-Post/</url>
-      <content type="html"><![CDATA[<hr>
-<p>title: My New Post<br>date: 2016-03-20 22:06:27<br>tags:<br>—hexo</p>
-]]></content>
+      <content type="html"></content>
     </entry>
     
     <entry>
