@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-27T09:52:33.753Z</updated>
+  <updated>2016-03-27T10:11:52.024Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://yoursite.com/2016/03/27/%E5%BC%80%E5%8D%9A%E2%80%94%E2%80%94%E8%AE%B0%E5%BD%95%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E6%88%90%E9%95%BF/"/>
     <id>http://yoursite.com/2016/03/27/开博——记录程序员的成长/</id>
     <published>2016-03-27T08:08:25.000Z</published>
-    <updated>2016-03-27T09:52:33.753Z</updated>
+    <updated>2016-03-27T10:11:52.024Z</updated>
     
     <content type="html">&lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/programer%E7%A8%8B%E5%BA%8F%E5%91%98.jpg&quot; width=&quot;500&quot; height=&quot;300&quot; alt=&quot;程序员&quot;&gt;&lt;/div&gt;
 
-&lt;p&gt;这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。&lt;/p&gt;
+&lt;p&gt;这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;人们眼中的程序员，往往是带着黑框眼镜、穿着蓝色牛仔、外加格子衬衫，整日埋头在电脑面前的，没有情感的‘机器’。只有程序员自己才能明白其实我们是有感情的，而且异常丰富。我们会为一个bug破口大骂，会为一个巧妙的算法惊呼，会为最终完成作品而感动流泪。程序员也是人，是充满感情的‘作家‘。&lt;/p&gt;
 &lt;p&gt;其实技术这条路，带来的不仅仅是技能上的提高，有时候更多的是给自己带来的成长，让自己更加稳重、成熟。越是在技术上钻研，越是发现机器下的世界和人们生活的世界是多么相似。人世间的纷纷扰扰在0和1的世界里同样存在，机器世界的制度规则在生活里同样上演。&lt;/p&gt;
 &lt;p&gt;以前自己的记录都写在本地上，虽然有过开博的想法，但总是因为各种各样的事情没有开成。可以说这次开博不容易。我希望在未来的日子了，将自己的技术领悟，人生随想都记录到这里，和大家一起学习，一起成长，共同见证一个程序员的岁月。&lt;/p&gt;
@@ -32,7 +32,9 @@
     
     <summary type="html">
     
-      &lt;div align=&quot;center&quot;&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/programer%E7%A8%8B%E5%BA%8F%E5%91%98.jpg&quot; width=&quot;500&quot; height=&quot;300&quot; alt=&quot;
+      &lt;div align=center&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/programer%E7%A8%8B%E5%BA%8F%E5%91%98.jpg&quot;  width =&quot;500&quot; height = &quot;300&quot; alt =&quot;程序员&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。&lt;br&gt;
     
     </summary>
     
