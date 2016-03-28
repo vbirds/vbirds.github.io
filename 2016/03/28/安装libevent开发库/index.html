@@ -3,15 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>开博——记录程序员的成长 | Vbirds&#39;s Blog</title>
+  <title>安装libevent开发库 | Vbirds&#39;s Blog</title>
   <meta name="author" content="vbirds">
   
-  <meta name="description" content="这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。">
+  <meta name="description" content="为了稳定性，我选 2.0.21-stable 版本。在安装中注意要以root用户身份运行。
+##1.下载源码包https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable
+##2.解压    tar -zxv">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="开博——记录程序员的成长"/>
+  <meta property="og:title" content="安装libevent开发库"/>
   <meta property="og:site_name" content="Vbirds&#39;s Blog"/>
 
   
@@ -112,9 +114,9 @@
 		  <h4 style="margin-top: 0;color: #333;font-size:15px;font-weight: normal;">
 			  当前位置&nbsp;:&nbsp;<a href="/" >首页&nbsp;</a>»&nbsp;文章分类&nbsp;:&nbsp;
 			
-				<a href="/categories/观点与感想/">观点与感想</a>
+				<a href="/categories/开发配置/">开发配置</a>
 			
-		  &nbsp;</a>»&nbsp; 开博——记录程序员的成长 </h4>
+		  &nbsp;</a>»&nbsp; 安装libevent开发库 </h4>
 		</div>
 
 		<div id="top_search"></div>
@@ -129,7 +131,7 @@
 							
 						<span class="entry-date">
 							<span class="fa fa-calendar" aria-hidden="true"></span>
-							2016-03-27						      
+							2016-03-28						      
 						</span>
 							  
 							  
@@ -140,20 +142,26 @@
 
 						<span class="comments-link">
 							<span class="fa fa-comments" aria-hidden="true"></span>
-							<span class="ds-thread-count" data-thread-key="2016/03/27/开博——记录程序员的成长/">暂无评论</span>
+							<span class="ds-thread-count" data-thread-key="2016/03/28/安装libevent开发库/">暂无评论</span>
 						</span>						
 							
 					</div>	
 
 									
 					<h3 class="entry-title"> 
-						<a href="/2016/03/27/开博——记录程序员的成长/" >开博——记录程序员的成长</a>
+						<a href="/2016/03/28/安装libevent开发库/" >安装libevent开发库</a>
 					</h3>		
 						
-					<span style="font-size:15px"><p>这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。<br><a id="more"></a></p>
-<p>人们眼中的程序员，往往是带着黑框眼镜、穿着蓝色牛仔、外加格子衬衫，整日埋头在电脑面前的，没有情感的‘机器’。只有程序员自己才能明白其实我们是有感情的，而且异常丰富。我们会为一个bug破口大骂，会为一个巧妙的算法惊呼，会为最终完成作品而感动流泪。程序员也是人，是充满感情的‘作家‘。</p>
-<p>其实技术这条路，带来的不仅仅是技能上的提高，有时候更多的是给自己带来的成长，让自己更加稳重、成熟。越是在技术上钻研，越是发现机器下的世界和人们生活的世界是多么相似。人世间的纷纷扰扰在0和1的世界里同样存在，机器世界的制度规则在生活里同样上演。</p>
-<p>以前自己的记录都写在本地上，虽然有过开博的想法，但总是因为各种各样的事情没有开成。可以说这次开博不容易。我希望在未来的日子了，将自己的技术领悟，人生随想都记录到这里，和大家一起学习，一起成长，共同见证一个程序员的岁月。</p>
+					<span style="font-size:15px"><p>为了稳定性，我选 <code>2.0.21-stable</code> 版本。在安装中注意要以<code>root</code>用户身份运行。</p>
+<p>##1.下载源码包<br><code>https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable</code></p>
+<p>##2.解压<br>    tar -zxvf Libevent-release-2.0.21-stable.tar.gz</p>
+<p>##3.配置安装路径<br>    cd Libevent-release-2.0.21-stable/<br>    ./configure -prefix=/usr</p>
+<p>##4.编译并安装<br>    make<br>    make install</p>
+<p>##5.测试libevent是否安装成功</p>
+<pre><code>#ls -al /usr/lib | grep libevent
+</code></pre><div class="fancybox"><br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG"><br></div>
+
+<p>##6.说明<br>如果编译后的程序提示找不到libvent的so，则创建库的链接和缓存文件<code>ldconfig</code></p>
 </span>
 				</header>
 
@@ -169,7 +177,7 @@
 				<span class="fa fa-folder" aria-hidden="true"></span> 
 
 				
-					<a href="/categories/观点与感想/">观点与感想</a>
+					<a href="/categories/开发配置/">开发配置</a>
 				
 
 			</span>
@@ -177,6 +185,10 @@
 			<span class="entry-tags">        
 				<span class="fa fa-tags" aria-hidden="true"></span> 
 
+				
+					<a href="/tags/服务器开发/">服务器开发</a>&nbsp;
+				
+					<a href="/tags/linux/">linux</a>&nbsp;
 				
 
 			</span>
@@ -205,16 +217,16 @@
 
 		 
 				
-					<p class="p1">上一篇 <a href="/2016/03/28/安装libevent开发库/">安装libevent开发库</a></p> 
 
 				
+				   <p class="p2">下一篇 <a href="/2016/03/27/开博——记录程序员的成长/">开博——记录程序员的成长</a></p> 
 			
 		
 		<!-- comment -->
 		
 <section id="comment">
   
-  	 <div class="ds-thread" data-thread-key="2016/03/27/开博——记录程序员的成长/" data-title="开博——记录程序员的成长" data-url="http://yoursite.com/2016/03/27/开博——记录程序员的成长/"></div>  
+  	 <div class="ds-thread" data-thread-key="2016/03/28/安装libevent开发库/" data-title="安装libevent开发库" data-url="http://yoursite.com/2016/03/28/安装libevent开发库/"></div>  
   
 </section>
 
@@ -318,6 +330,13 @@
 
 
 	      <!-- toc -->	      
+	      
+		<div class="widget">
+		    <span style="font-size: 14px font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">本文目录 <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a></span>
+		    <div id="toc" class="toc collapse in">
+			
+		    </div>
+		</div>
 	      	      
 
 	      
