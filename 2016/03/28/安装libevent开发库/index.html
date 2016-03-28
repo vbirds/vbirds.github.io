@@ -6,8 +6,7 @@
   <title>安装libevent开发库 | Vbirds&#39;s Blog</title>
   <meta name="author" content="vbirds">
   
-  <meta name="description" content="为了稳定性，我选 2.0.21-stable 版本。在安装中注意要以root用户身份运行。
-1.下载源码包https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable">
+  <meta name="description" content="为了稳定性，我选 2.0.21-stable 版本。在安装中注意要以root用户身份运行。">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -151,15 +150,15 @@
 						<a href="/2016/03/28/安装libevent开发库/" >安装libevent开发库</a>
 					</h3>		
 						
-					<span style="font-size:15px"><p>为了稳定性，我选 <code>2.0.21-stable</code> 版本。在安装中注意要以<code>root</code>用户身份运行。</p>
-<h2 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1.下载源码包"></a>1.下载源码包</h2><p><code>https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable</code><br><a id="more"></a></p>
+					<span style="font-size:15px"><p>为了稳定性，我选 <code>2.0.21-stable</code> 版本。在安装中注意要以<code>root</code>用户身份运行。<br><a id="more"></a></p>
+<h2 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1.下载源码包"></a>1.下载源码包</h2><p><code>https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable</code></p>
 <h2 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h2><pre><code>tar -zxvf Libevent-release-2.0.21-stable.tar.gz
 </code></pre><h2 id="3-配置安装路径"><a href="#3-配置安装路径" class="headerlink" title="3.配置安装路径"></a>3.配置安装路径</h2><pre><code>cd Libevent-release-2.0.21-stable/
 ./configure -prefix=/usr
 </code></pre><h2 id="4-编译并安装"><a href="#4-编译并安装" class="headerlink" title="4.编译并安装"></a>4.编译并安装</h2><pre><code>make
 make install
 </code></pre><h2 id="5-测试libevent是否安装成功"><a href="#5-测试libevent是否安装成功" class="headerlink" title="5.测试libevent是否安装成功"></a>5.测试libevent是否安装成功</h2><pre><code>#ls -al /usr/lib | grep libevent
-</code></pre><div class="fancybox"><br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG"><br></div>
+</code></pre><div><br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG" class="fancybox"><br></div>
 
 <h2 id="6-说明"><a href="#6-说明" class="headerlink" title="6.说明"></a>6.说明</h2><p>如果编译后的程序提示找不到libvent的so，则创建库的链接和缓存文件<code>ldconfig</code></p>
 </span>
@@ -356,9 +355,9 @@ make install
 		<h4 style="font-weight: bold; color: #333 ">标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
-		
 			<li><a href="/tags/服务器开发/">服务器开发<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
 		
 		 
 		</ul>
