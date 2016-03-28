@@ -7,16 +7,16 @@
       <title><![CDATA[安装libevent开发库]]></title>
       <url>http://yoursite.com/2016/03/28/%E5%AE%89%E8%A3%85libevent%E5%BC%80%E5%8F%91%E5%BA%93/</url>
       <content type="html"><![CDATA[<p>为了稳定性，我选 <code>2.0.21-stable</code> 版本。在安装中注意要以<code>root</code>用户身份运行。<br><a id="more"></a></p>
-<h2 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1.下载源码包"></a>1.下载源码包</h2><p><code>https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable</code></p>
-<h2 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h2><pre><code>tar -zxvf Libevent-release-2.0.21-stable.tar.gz
-</code></pre><h2 id="3-配置安装路径"><a href="#3-配置安装路径" class="headerlink" title="3.配置安装路径"></a>3.配置安装路径</h2><pre><code>cd Libevent-release-2.0.21-stable/
+<h3 id="1-下载源码包"><a href="#1-下载源码包" class="headerlink" title="1.下载源码包"></a>1.下载源码包</h3><p><code>https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable</code></p>
+<h3 id="2-解压"><a href="#2-解压" class="headerlink" title="2.解压"></a>2.解压</h3><pre><code>tar -zxvf Libevent-release-2.0.21-stable.tar.gz
+</code></pre><h3 id="3-配置安装路径"><a href="#3-配置安装路径" class="headerlink" title="3.配置安装路径"></a>3.配置安装路径</h3><pre><code>cd Libevent-release-2.0.21-stable/
 ./configure -prefix=/usr
-</code></pre><h2 id="4-编译并安装"><a href="#4-编译并安装" class="headerlink" title="4.编译并安装"></a>4.编译并安装</h2><pre><code>make
+</code></pre><h3 id="4-编译并安装"><a href="#4-编译并安装" class="headerlink" title="4.编译并安装"></a>4.编译并安装</h3><pre><code>make
 make install
-</code></pre><h2 id="5-测试libevent是否安装成功"><a href="#5-测试libevent是否安装成功" class="headerlink" title="5.测试libevent是否安装成功"></a>5.测试libevent是否安装成功</h2><pre><code>#ls -al /usr/lib | grep libevent
-</code></pre><div><br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG" class="fancybox"><br></div>
+</code></pre><h3 id="5-测试libevent是否安装成功"><a href="#5-测试libevent是否安装成功" class="headerlink" title="5.测试libevent是否安装成功"></a>5.测试libevent是否安装成功</h3><pre><code>#ls -al /usr/lib | grep libevent
+</code></pre><div class="nofancybox"><br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG"><br></div>
 
-<h2 id="6-说明"><a href="#6-说明" class="headerlink" title="6.说明"></a>6.说明</h2><p>如果编译后的程序提示找不到libvent的so，则创建库的链接和缓存文件<code>ldconfig</code></p>
+<h3 id="6-说明"><a href="#6-说明" class="headerlink" title="6.说明"></a>6.说明</h3><p>如果编译后的程序提示找不到libvent的so，则创建库的链接和缓存文件<code>ldconfig</code></p>
 ]]></content>
     </entry>
     

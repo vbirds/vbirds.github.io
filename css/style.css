@@ -377,6 +377,9 @@ video {
   max-width: 97.5%;
   margin: 15px auto;
   height: auto;
+  display: block;
+  width: auto;
+  max-width: 60%;
 }
 
 /* =============================================================================
