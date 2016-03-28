@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-03-28T07:21:35.467Z</updated>
+  <updated>2016-03-28T07:36:59.236Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,18 +20,15 @@
     <link href="http://yoursite.com/2016/03/28/%E5%AE%89%E8%A3%85libevent%E5%BC%80%E5%8F%91%E5%BA%93/"/>
     <id>http://yoursite.com/2016/03/28/安装libevent开发库/</id>
     <published>2016-03-28T06:20:39.000Z</published>
-    <updated>2016-03-28T07:21:35.467Z</updated>
+    <updated>2016-03-28T07:36:59.236Z</updated>
     
     <content type="html">&lt;p&gt;为了稳定性，我选 &lt;code&gt;2.0.21-stable&lt;/code&gt; 版本。在安装中注意要以&lt;code&gt;root&lt;/code&gt;用户身份运行。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;1-下载源码包&quot;&gt;&lt;a href=&quot;#1-下载源码包&quot; class=&quot;headerlink&quot; title=&quot;1.下载源码包&quot;&gt;&lt;/a&gt;1.下载源码包&lt;/h3&gt;&lt;p&gt;&lt;code&gt;https://codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&quot;2-解压&quot;&gt;&lt;a href=&quot;#2-解压&quot; class=&quot;headerlink&quot; title=&quot;2.解压&quot;&gt;&lt;/a&gt;2.解压&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;tar -zxvf Libevent-release-2.0.21-stable.tar.gz
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;3-配置安装路径&quot;&gt;&lt;a href=&quot;#3-配置安装路径&quot; class=&quot;headerlink&quot; title=&quot;3.配置安装路径&quot;&gt;&lt;/a&gt;3.配置安装路径&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;cd Libevent-release-2.0.21-stable/
-./configure -prefix=/usr
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;4-编译并安装&quot;&gt;&lt;a href=&quot;#4-编译并安装&quot; class=&quot;headerlink&quot; title=&quot;4.编译并安装&quot;&gt;&lt;/a&gt;4.编译并安装&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;make
-make install
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;5-测试libevent是否安装成功&quot;&gt;&lt;a href=&quot;#5-测试libevent是否安装成功&quot; class=&quot;headerlink&quot; title=&quot;5.测试libevent是否安装成功&quot;&gt;&lt;/a&gt;5.测试libevent是否安装成功&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;#ls -al /usr/lib | grep libevent
-&lt;/code&gt;&lt;/pre&gt;&lt;div class=&quot;nofancybox&quot;&gt;&lt;br&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG&quot;&gt;&lt;br&gt;&lt;/div&gt;
-
+&lt;h3 id=&quot;1-下载源码包&quot;&gt;&lt;a href=&quot;#1-下载源码包&quot; class=&quot;headerlink&quot; title=&quot;1.下载源码包&quot;&gt;&lt;/a&gt;1.下载源码包&lt;/h3&gt;&lt;figure class=&quot;highlight coffeescript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;`&lt;span class=&quot;javascript&quot;&gt;https:&lt;span class=&quot;comment&quot;&gt;//codeload.github.com/nmathewson/Libevent/tar.gz/release-2.0.21-stable&lt;/span&gt;&lt;/span&gt;`&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;2-解压&quot;&gt;&lt;a href=&quot;#2-解压&quot; class=&quot;headerlink&quot; title=&quot;2.解压&quot;&gt;&lt;/a&gt;2.解压&lt;/h3&gt;&lt;figure class=&quot;highlight css&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;selector-tag&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;selector-tag&quot;&gt;-zxvf&lt;/span&gt; &lt;span class=&quot;selector-tag&quot;&gt;Libevent-release-2&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.0&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.21-stable&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.tar&lt;/span&gt;&lt;span class=&quot;selector-class&quot;&gt;.gz&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;3-配置安装路径&quot;&gt;&lt;a href=&quot;#3-配置安装路径&quot; class=&quot;headerlink&quot; title=&quot;3.配置安装路径&quot;&gt;&lt;/a&gt;3.配置安装路径&lt;/h3&gt;&lt;figure class=&quot;highlight arduino&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;cd Libevent-&lt;span class=&quot;built_in&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;-2.0&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.21&lt;/span&gt;-stable/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./configure -prefix=/usr&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;4-编译并安装&quot;&gt;&lt;a href=&quot;#4-编译并安装&quot; class=&quot;headerlink&quot; title=&quot;4.编译并安装&quot;&gt;&lt;/a&gt;4.编译并安装&lt;/h3&gt;&lt;figure class=&quot;highlight gauss&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;make&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;make&lt;/span&gt; install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;5-测试libevent是否安装成功&quot;&gt;&lt;a href=&quot;#5-测试libevent是否安装成功&quot; class=&quot;headerlink&quot; title=&quot;5.测试libevent是否安装成功&quot;&gt;&lt;/a&gt;5.测试libevent是否安装成功&lt;/h3&gt;&lt;figure class=&quot;highlight gradle&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;#ls -al &lt;span class=&quot;regexp&quot;&gt;/usr/&lt;/span&gt;lib | &lt;span class=&quot;keyword&quot;&gt;grep&lt;/span&gt; libevent&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%AE%89%E8%A3%85%E6%B5%8B%E8%AF%95.PNG&quot; class=&quot;thumbnail&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;6-说明&quot;&gt;&lt;a href=&quot;#6-说明&quot; class=&quot;headerlink&quot; title=&quot;6.说明&quot;&gt;&lt;/a&gt;6.说明&lt;/h3&gt;&lt;p&gt;如果编译后的程序提示找不到libvent的so，则创建库的链接和缓存文件&lt;code&gt;ldconfig&lt;/code&gt;&lt;/p&gt;
 </content>
     
