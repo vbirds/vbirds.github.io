@@ -12,7 +12,7 @@
 <li>解析网页。分析网页，从中取出所有图片连接。</li>
 <li>下载。通过得到的图片连接下载图片。</li>
 </ol>
-<p>分析完成后我们开始编写程序：</p>
+<p>分析完成后我们开始编写程序：<br><a id="more"></a></p>
 <h4 id="先得到网页"><a href="#先得到网页" class="headerlink" title="先得到网页"></a>先得到网页</h4><p>python自带<code>urllib</code>库，利用这个库我们可以轻松的得到网页。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line">html = urllib.urlopen(<span class="string">"https://mm.taobao.com/1832304329.htm"</span>).read()</span><br></pre></td></tr></table></figure></p>
 <p>这里有个要注意的地方:<code>编码问题</code> 我下的这个网页是<code>GBK</code>编码，所以要进行转换：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html = html.decode(<span class="string">"GBK"</span>) <span class="comment"># decode 编码转换</span></span><br></pre></td></tr></table></figure></p>
 <h4 id="解析网页"><a href="#解析网页" class="headerlink" title="解析网页"></a>解析网页</h4><p>接下来就是解析页面了，通过正则表达式可以很容易的到图片的连接，正则表达式在<code>re</code>库中我们导入它<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br></pre></td></tr></table></figure></p>

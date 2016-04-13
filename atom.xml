@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-04-13T15:40:47.399Z</updated>
+  <updated>2016-04-13T15:42:16.291Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/04/13/python-%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87/"/>
     <id>http://yoursite.com/2016/04/13/python-批量下载图片/</id>
     <published>2016-04-13T14:54:57.000Z</published>
-    <updated>2016-04-13T15:40:47.399Z</updated>
+    <updated>2016-04-13T15:42:16.291Z</updated>
     
     <content type="html">&lt;p&gt;首先我们先分析这个程序，这个程序的功能从网页批量下载图片，既然是网页下载，无非有这三个步骤：&lt;/p&gt;
 &lt;ol&gt;
@@ -28,7 +28,7 @@
 &lt;li&gt;解析网页。分析网页，从中取出所有图片连接。&lt;/li&gt;
 &lt;li&gt;下载。通过得到的图片连接下载图片。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;分析完成后我们开始编写程序：&lt;/p&gt;
+&lt;p&gt;分析完成后我们开始编写程序：&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;先得到网页&quot;&gt;&lt;a href=&quot;#先得到网页&quot; class=&quot;headerlink&quot; title=&quot;先得到网页&quot;&gt;&lt;/a&gt;先得到网页&lt;/h4&gt;&lt;p&gt;python自带&lt;code&gt;urllib&lt;/code&gt;库，利用这个库我们可以轻松的得到网页。&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; urllib&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;html = urllib.urlopen(&lt;span class=&quot;string&quot;&gt;&quot;https://mm.taobao.com/1832304329.htm&quot;&lt;/span&gt;).read()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;p&gt;这里有个要注意的地方:&lt;code&gt;编码问题&lt;/code&gt; 我下的这个网页是&lt;code&gt;GBK&lt;/code&gt;编码，所以要进行转换：&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;html = html.decode(&lt;span class=&quot;string&quot;&gt;&quot;GBK&quot;&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;# decode 编码转换&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;h4 id=&quot;解析网页&quot;&gt;&lt;a href=&quot;#解析网页&quot; class=&quot;headerlink&quot; title=&quot;解析网页&quot;&gt;&lt;/a&gt;解析网页&lt;/h4&gt;&lt;p&gt;接下来就是解析页面了，通过正则表达式可以很容易的到图片的连接，正则表达式在&lt;code&gt;re&lt;/code&gt;库中我们导入它&lt;br&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; re&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
@@ -47,7 +47,9 @@
 &lt;ol&gt;
 &lt;li&gt;先得到网页。得到网页，以便程序分析网页中的图片连接。&lt;/li&gt;
 &lt;li&gt;解析网页。分析网页，从中取出所有图片连接。&lt;/li&gt;
-&lt;li&gt;下载。通过得到的图片
+&lt;li&gt;下载。通过得到的图片连接下载图片。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;分析完成后我们开始编写程序：&lt;br&gt;
     
     </summary>
     

@@ -152,18 +152,7 @@
 <li>解析网页。分析网页，从中取出所有图片连接。</li>
 <li>下载。通过得到的图片连接下载图片。</li>
 </ol>
-<p>分析完成后我们开始编写程序：</p>
-<h4 id="先得到网页"><a href="#先得到网页" class="headerlink" title="先得到网页"></a>先得到网页</h4><p>python自带<code>urllib</code>库，利用这个库我们可以轻松的得到网页。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line">html = urllib.urlopen(<span class="string">"https://mm.taobao.com/1832304329.htm"</span>).read()</span><br></pre></td></tr></table></figure></p>
-<p>这里有个要注意的地方:<code>编码问题</code> 我下的这个网页是<code>GBK</code>编码，所以要进行转换：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html = html.decode(<span class="string">"GBK"</span>) <span class="comment"># decode 编码转换</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="解析网页"><a href="#解析网页" class="headerlink" title="解析网页"></a>解析网页</h4><p>接下来就是解析页面了，通过正则表达式可以很容易的到图片的连接，正则表达式在<code>re</code>库中我们导入它<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br></pre></td></tr></table></figure></p>
-<p>编译正则表达式:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg = re.compile(<span class="string">r'src="//(.*?)"/&gt;'</span>) <span class="comment"># 正则表达式 (编译正则表达式）</span></span><br></pre></td></tr></table></figure></p>
-<p>解析网页：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">imgurl = re.findall(reg, html)</span><br></pre></td></tr></table></figure></p>
-<p>这样我们将所有的图片连接地址保存在了<code>imgurl</code>中了。</p>
-<h4 id="下载网页中的图片并保存"><a href="#下载网页中的图片并保存" class="headerlink" title="下载网页中的图片并保存"></a>下载网页中的图片并保存</h4><p>利用切片得到图片的格式，将图片保存。图片连接格式：<code>img.alicdn.com/imgextra/i4/1832304329/TB1.9G9LVXXXXXeaXXXXXXXXXXX_!!0-tstar.jpg&quot;</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> imgurl:</span><br><span class="line">    n += <span class="number">1</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"正在下载第%s张图片, 共%s张图片"</span> %(n, len(imgurl)) </span><br><span class="line">    urllib.urlretrieve(<span class="string">'http://%s'</span> %i, <span class="string">'%s.%s'</span> %(n, i[<span class="number">-3</span>:])) <span class="comment">#i[-3:]得到图片格式 并保存</span></span><br></pre></td></tr></table></figure>
-<h4 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h4><p><img src="http://7xsc1o.com1.z0.glb.clouddn.com/pythonpython%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BD%E5%9B%BE%E7%89%87.png" alt="python批量下载图片"></p>
-<h4 id="完整源码"><a href="#完整源码" class="headerlink" title="完整源码"></a>完整源码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">html = urllib.urlopen(<span class="string">"https://mm.taobao.com/1832304329.htm"</span>).read()</span><br><span class="line">html = html.decode(<span class="string">"GBK"</span>) <span class="comment"># decode and encode 学习  编码转换</span></span><br><span class="line"></span><br><span class="line">reg = re.compile(<span class="string">r'src="//(.*?)"/&gt;'</span>) <span class="comment"># 正则表达式 (编译正则表达式）</span></span><br><span class="line"></span><br><span class="line">imgurl = re.findall(reg, html)</span><br><span class="line"></span><br><span class="line">n = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> imgurl:</span><br><span class="line">    n += <span class="number">1</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"正在下载第%s张图片, 共%s张图片"</span> %(n, len(imgurl))</span><br><span class="line">    urllib.urlretrieve(<span class="string">'http://%s'</span> %i, <span class="string">'%s.%s'</span> %(n, i[<span class="number">-3</span>:]))</span><br></pre></td></tr></table></figure>
-
+<p>分析完成后我们开始编写程序：<br>
 	
 	...</div>
 </div>
@@ -413,11 +402,11 @@
 		<h4 style="font-weight: bold; color: #333 ">标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
+			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
 			<li><a href="/tags/服务器开发/">服务器开发<span>1</span></a></li>
 		
-			<li><a href="/tags/python/">python<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
 		
 		 
 		</ul>
