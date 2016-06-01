@@ -20,12 +20,10 @@
 
   
   
-    <link href="/favicon.ico" rel="icon">
+    <link href="/favicon.png" rel="icon">
   
 
   <!-- CSS -->
-
-
   <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
@@ -35,7 +33,6 @@
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
-  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
 
   <!-- analytics -->
   
@@ -58,32 +55,26 @@
 		<ul class="nav navbar-nav">
 		  
 		  <li>
-			<a href="/tags/热点文章/" title="All the tags.">
-			  <i class="fa fa-fire"></i>热点文章
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags/博主推荐/" title="All the tags.">
-			  <i class="fa fa-volume-up"></i>博主推荐
-			</a>
-		  </li>
-		  
-		  <li>
 			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>文章归档
+			  <i class="fa fa-archive"></i>Archives
 			</a>
 		  </li>
 		  
 		  <li>
-			<a href="/message" title="All the tags.">
-			  <i class="fa fa-pencil"></i>给我留言
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
 			</a>
 		  </li>
 		  
 		  <li>
 			<a href="/about" title="About me.">
-			  <i class="fa fa-info-circle"></i>关于本站
+			  <i class="fa fa-user"></i>About
 			</a>
 		  </li>
 		  
@@ -98,6 +89,16 @@
     	 
 
 
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> 位运算</h1>
+		</div>		
+	
+
+
+
+
+
 
 <div class="row post">
 	<!-- cols -->
@@ -106,51 +107,11 @@
 	<div class="col-md-9">
 	
 
-		<!-- content -->
+	<!-- content -->
+	<div class="mypage">		
+	  		
 
-		<div class="slogan" style="margin-bottom: 17px">
-		  <h4 style="margin-top: 0;color: #333;font-size:15px;font-weight: normal;">
-			  当前位置&nbsp;:&nbsp;<a href="/" >首页&nbsp;</a>»&nbsp;文章分类&nbsp;:&nbsp;
-			
-				<a href="/categories/c-c/">c/c++</a>
-			
-		  &nbsp;</a>»&nbsp; 位运算 </h4>
-		</div>
-
-		<div id="top_search"></div>
-				 
-		
-
-		<div class="archive">	  
-			<div id="archives"> 
-				
-				<header class="entry-header">
-					<div class="entry-info" text-transform : capitalize>				     					      	      
-							
-						<span class="entry-date">
-							<span class="fa fa-calendar" aria-hidden="true"></span>
-							2016-05-24						      
-						</span>
-							  
-							  
-						<span class="author vcard">
-							<span class="fa fa-user" aria-hidden="true"></span>
-							<a href="/">vbirds</a> 	 	
-						</span>
-
-						<span class="comments-link">
-							<span class="fa fa-comments" aria-hidden="true"></span>
-							<span class="ds-thread-count" data-thread-key="2016/05/24/位运算/">暂无评论</span>
-						</span>						
-							
-					</div>	
-
-									
-					<h3 class="entry-title"> 
-						<a href="/2016/05/24/位运算/" >位运算</a>
-					</h3>		
-						
-					<span style="font-size:15px"><p>二进制是计算技术中广泛采用的一种数制。二进制数据是用0和1两个数码来表示的数。它的基数为2，进位规则是“逢二进一”，借位规则是“借一当二”，由18世纪德国数理哲学大师莱布尼兹发现。当前的计算机系统使用的基本上是二进制系统，数据在计算机中主要是以补码的形式存储的。<br><a id="more"></a></p>
+	  <p>二进制是计算技术中广泛采用的一种数制。二进制数据是用0和1两个数码来表示的数。它的基数为2，进位规则是“逢二进一”，借位规则是“借一当二”，由18世纪德国数理哲学大师莱布尼兹发现。当前的计算机系统使用的基本上是二进制系统，数据在计算机中主要是以补码的形式存储的。<br><a id="more"></a></p>
 <h2 id="二进制的操作"><a href="#二进制的操作" class="headerlink" title="二进制的操作"></a>二进制的操作</h2><h3 id="1-位移"><a href="#1-位移" class="headerlink" title="1 位移"></a>1 位移</h3><p>一个 <code>unsigned char</code> 由一个字节构成。<br><strong>左移运算</strong>：<code>X&lt;&lt;Y</code>：</p>
 <blockquote>
 <p>将x左移y位，将x最左边的y位丢弃，在右边补y个0。</p>
@@ -198,271 +159,133 @@
 <h4 id="9-判断一个数的奇偶性"><a href="#9-判断一个数的奇偶性" class="headerlink" title="9 判断一个数的奇偶性"></a>9 判断一个数的奇偶性</h4><p>判断奇偶性，实质是判断最后一位是否是1.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    判断一个数的奇偶性.返回1，为奇数;返回0，为偶数 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isOdd</span><span class="params">(<span class="keyword">int</span> num)</span>  </span><br><span class="line"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> num &amp; <span class="number">1</span> == <span class="number">1</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="10-求一个数的绝对值"><a href="#10-求一个数的绝对值" class="headerlink" title="10 求一个数的绝对值"></a>10 求一个数的绝对值</h4><p>下面的方法实现的基础是将n右移31位，可以获得n的符号。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    取绝对值 </span><br><span class="line">    n右移31位，可以获得n的符号。若n为正数，得到0；若n为负数，得到 -1 </span><br><span class="line">     </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myAbs</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (n ^ n &gt;&gt; <span class="number">31</span>) - (n &gt;&gt; <span class="number">31</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="11-求两个数的平均值"><a href="#11-求两个数的平均值" class="headerlink" title="11 求两个数的平均值"></a>11 求两个数的平均值</h4><p>第一种方法较为普遍且简单，不多说了。第二种方法，需要知道的是，<code>( m ^ n ) &gt;&gt; 1</code>得到的结果是m和n其中一个数的有些位为1的值的一半，<code>m &amp; n</code>得到的结果是m 和n都为1的那些位，两个结果相加得到m和n的平均数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    求m和n的平均数 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getAverage</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (m + n) &gt;&gt; <span class="number">1</span>;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">    求m和n的平均数 </span><br><span class="line">    (m ^ n) &gt;&gt; 1 -&gt; 获得m和n两个数中一个数的某些位为1的一半 </span><br><span class="line">    m &amp; n -&gt; 获得m和n两个数中都为1的某些位 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getAverage_2</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> ((m ^ n) &gt;&gt; <span class="number">1</span>) + (m &amp; n);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</span>
-				</header>
+	  
+	</div>
 
-				<!-- share -->
-				
-					
-
-					
-     <footer class="entry-meta">      
-
-	    <div class="fenlei" style="font-size:13.5px">
-			<span class="entry-categories">
-				<span class="fa fa-folder" aria-hidden="true"></span> 
-
-				
-					<a href="/categories/c-c/">c/c++</a>
-				
-
-			</span>
-			
-			<span class="entry-tags">        
-				<span class="fa fa-tags" aria-hidden="true"></span> 
-
-				
-					<a href="/tags/位运算/">位运算</a>&nbsp;
-				
-
-			</span>
-		</div>
-
-     
-		<!-- JiaThis Button BEGIN -->
-		<div class="jiathis_style" style="float:right;">
-			<span class="jiathis_txt">分享到：</span>
-			<a class="jiathis_button_qzone">QQ空间</a>
-			<a class="jiathis_button_tsina">新浪微博</a>
-			<a class="jiathis_button_weixin">微信</a>
-			<a class="jiathis_button_copy">复制</a>
-			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
-			<a class="jiathis_counter_style"></a>
-		</div>
-		<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-		<!-- JiaThis Button END -->
-		<br>
-    </footer>
-
-
-				
-			</div>	
-		</div>	 	        
-
-		 
-				
-
-				
-				   <p class="p2">下一篇 <a href="/2016/04/13/python-批量下载图片/">python   批量下载图片</a></p> 
-			
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
 		
-		<!-- comment -->
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
 		
+		   <li class="next"><a href="/2016/04/13/python-批量下载图片/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
 <section id="comment">
+  <h2 class="title">留言</h2>
+
   
   	 <div class="ds-thread" data-thread-key="2016/05/24/位运算/" data-title="位运算" data-url="http://yoursite.com/2016/05/24/位运算/"></div>  
   
 </section>
 
+	</div> <!-- col-md-9/col-md-12 -->
 		
-	</div> <!-- col-md-9/col-md-12 -->	
-
 	
-		<div id="side_meta">
-			
-      <div class="col-md-3">
-	      <div id="sidebar">
-	      
-  <div class="form-group has-success has-feedback" id="site_search">
-    <form class="site-search-form">
-        <input type="text" id="st-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control" />
-    </form>
-  </div>  
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
-	      <style type="text/css">
-  .cls_container{height:24px;overflow:hidden;}
-  .cls_container ul{list-style-type:none;margin:0;padding:0;margin-left:0px;}
-  .cls_container ul li{height:24px;line-height:24px;float:left;display:inline;}
-</style>
-
-<div class="widget">
-	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">本站公告</h4>
+	<!-- date -->
 	
-	<div id="myscroll" class="cls_container">
-		<ul>
-		  <li><span style="color:red"><i class="fa fa-warning"></i>欢迎访问本站!</span></li></br>
-		  <li><span style="color:red"><i class="fa fa-warning"></i>谷歌浏览器访问本站效果最佳!</span></li></br>
-		  <li><span style="color:red"><i class="fa fa-warning"></i>若URL失效，请使用本站内部搜索</span></li></br>
-		</ul>
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-05-24 
 	</div>
 	
 
-	<div id="showhint"></div>
-</div>
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/c-c/">c/c++<span>1</span></a></li>
+  </li>
 
-<script type="text/javascript">
-	function $(element){
-	 if(arguments.length>1){
-	  for(var i=0,length=arguments.length,elements=[];i<length;i++){
-	   elements.push($(arguments[i]));
-	  }
-	  return elements;
-	 }
-	 if(typeof element=="string"){
-	  return document.getElementById(element);
-	 }else{
-	  return element;
-	 }
-	}
-	var Class={
-	 create:function(){
-	  return function(){
-	   this.initialize.apply(this,arguments);
-	  }
-	 }
-	}
-	Function.prototype.bind=function(object){
-	 var method=this;
-	 return function(){
-	  method.apply(object,arguments);
-	 }
-	}
-	var Scroll=Class.create();
-	Scroll.prototype={
-	 initialize:function(element,height){
-	  this.element=$(element);
-	  this.element.innerHTML+=this.element.innerHTML;
-	  this.height=height;
-	  this.maxHeight=this.element.scrollHeight/2;
-	  this.counter=0;
-	  this.scroll();
-	  this.timer="";
-	  this.element.onmouseover=this.stop.bind(this);
-	  this.element.onmouseout=function(){this.timer=setTimeout(this.scroll.bind(this),1000);}.bind(this);
-	 },
-	 scroll:function(){
-	  if(this.element.scrollTop<this.maxHeight){
-	   this.element.scrollTop++;
-	   this.counter++;
-	  }else{
-	   this.element.scrollTop=0;
-	   this.counter=0;
-	  }
-	  if(this.counter<this.height){
-	   this.timer=setTimeout(this.scroll.bind(this),20);
-	  }else{
-	   this.counter=0;
-	   this.timer=setTimeout(this.scroll.bind(this),3000);
-	  }
-	 },
-	 stop:function(){
-	  clearTimeout(this.timer);
-	 }
-	}
-	var myscroll=new Scroll("myscroll",24);
-</script>
+    </ul>
+	</div>
+	
 
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/位运算/">位运算<span>1</span></a></li>
+    </ul>
+	</div>
+		
 
-	      <!-- toc -->	      
-	      
-		<div class="widget">
-		    <span style="font-size: 14px font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">本文目录 <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a></span>
-		    <div id="toc" class="toc collapse in">
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
 			<ol class="toc-article"><li class="toc-article-item toc-article-level-2"><a class="toc-article-link" href="#二进制的操作"><span class="toc-article-text">二进制的操作</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#1-位移"><span class="toc-article-text">1 位移</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#2-按位与运算符-amp"><span class="toc-article-text">2 按位与运算符 &</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#3-按位或运算符"><span class="toc-article-text">3 按位或运算符 |</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#4-异或运算符"><span class="toc-article-text">4 异或运算符 ^</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#5-按位取反"><span class="toc-article-text">5 按位取反 ~</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#6-计算技巧"><span class="toc-article-text">6 计算技巧</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#1-检查state的第pos位是否为1"><span class="toc-article-text">1 检查state的第pos位是否为1</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#2-将state的第pos位的值设为1"><span class="toc-article-text">2 将state的第pos位的值设为1</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#3-将state的第pos位的值设为0"><span class="toc-article-text">3 将state的第pos位的值设为0</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#4-计算一个数的二进制中1的个数"><span class="toc-article-text">4 计算一个数的二进制中1的个数</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#5-判断一个数是否是2的n次方"><span class="toc-article-text">5 判断一个数是否是2的n次方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#6-整数n经过多少步可以变为整数m"><span class="toc-article-text">6 整数n经过多少步可以变为整数m</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#7-获得最大的int值"><span class="toc-article-text">7 获得最大的int值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#8-获得最小的int值"><span class="toc-article-text">8 获得最小的int值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#9-判断一个数的奇偶性"><span class="toc-article-text">9 判断一个数的奇偶性</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#10-求一个数的绝对值"><span class="toc-article-text">10 求一个数的绝对值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#11-求两个数的平均值"><span class="toc-article-text">11 求两个数的平均值</span></a></li></ol></li></ol></li></ol>
-		    </div>
 		</div>
-	      	      
-
-	      
-	<div class="widget">
-		<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">分类目录</h4>
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="/categories/c-c/">c/c++<span>1</span></a></li>
-		
-			<li><a href="/categories/python/">python<span>1</span></a></li>
-		
-			<li><a href="/categories/开发配置/">开发配置<span>1</span></a></li>
-		
-			<li><a href="/categories/观点与感想/">观点与感想<span>1</span></a></li>
-		
-		</ul>
+	
 	</div>
 	
-	      
-	<div class="widget">
-		<h4 style="font-weight: bold; color: #333 ">标签云</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
-		
-			<li><a href="/tags/位运算/">位运算<span>1</span></a></li>
-		
-			<li><a href="/tags/python/">python<span>1</span></a></li>
-		
-			<li><a href="/tags/服务器开发/">服务器开发<span>1</span></a></li>
-		
-		 
-		</ul>
+    <hr>
+	
+</div><!-- col-md-3 -->
+
 	</div>
-
-
-	      
-<div class="widget">
-	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">友情链接</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li style="font-size:14px"><i class="fa fa-share"></i><a href="http://hexo.io" title="My Linkin account." target="_blank"]);">Hexo</a></li>
-	
-		<li style="font-size:14px"><i class="fa fa-github"></i><a href="https://github.com/vbirds" title="My Github account." target="_blank"]);">我的github</a></li>
-	
-	</ul>
-</div>
-
-
-	      <div class="widget">
-	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">近期评论</h4>
-	<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="0" data-show-admin="1" data-excerpt-length="100" ></ul>
-	
-	<script type="text/javascript">
-	    var duoshuoQuery = {short_name:"vbirds"};
-	    (function() {
-	    var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-		})();
-	</script>
-
-</div>
-
-
-	
-	      <section id="recent-visitors" class="widget widget_recent_comments">
-	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">最近访客</h4>
-  	<div class="panelbody clearfix"><ul class="ds-recent-visitors" data-num-items="30"></ul></div>
-</section>    
-	      </div> <!-- sidebar -->
-      </div> <!-- col-md-3 -->
-
-		</div>
-			
+		
 
 </div><!-- row -->
 
-
-	<script type="text/javascript">
-	  var duoshuoQuery = { short_name: 'vbirds' };
-	  (function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';
-		ds.async = true;
-		ds.src = 'http://static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-	  })();
-	</script>
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'vbirds' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
 
 
 
@@ -470,23 +293,12 @@
   </div>
   <div class="container-narrow">
   <footer> <p>
-  vbirds &copy; 2013-2016.
+  &copy; 2016 vbirds
   
-       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, <a href="https://swiftype.com/" target="_blank">Swiftype</a> and <a href="http://www.qiniu.com/" target="_blank">七牛云存储</a>.
-      <i class="fa fa-sitemap %>"></i> <a href="/sitemap.xml" target="_blank"> 站点地图</a>. <a href="http://www.miitbeian.gov.cn/">粤ICP备15038546号</a>.
-      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255163192'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255163192' type='text/javascript'%3E%3C/script%3E"));</script>   
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
 </div> <!-- container-narrow -->
   
-  <script type="text/javascript">
-  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
-    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
-    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
-  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
-
-  _st('install', 'RiQWeQ-7TFAjV-8zT8AZ','2.0.0');
-  </script>
-
 
 
   
