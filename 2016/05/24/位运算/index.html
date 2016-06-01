@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Vbirds&#39;s Blog</title>
+  <title>位运算 | Vbirds&#39;s Blog</title>
   <meta name="author" content="vbirds">
+  
+  <meta name="description" content="二进制位一个字节由8个位组成0000  : 0 (OX00)```123456789101112131415161718192021222324252627282930313233343536373839```0000 0001  : 1 (OX01)``` ```0000 0010  : 2 (O">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="位运算"/>
   <meta property="og:site_name" content="Vbirds&#39;s Blog"/>
 
   
@@ -93,55 +95,62 @@
 
   <div class="container">
   	<div class="content">
-    	 <div class="row page">
+    	 
 
+
+
+<div class="row post">
+	<!-- cols -->
 	
+	<div id="top_meta"></div>
 	<div class="col-md-9">
 	
 
+		<!-- content -->
+
 		<div class="slogan" style="margin-bottom: 17px">
-      <h4 style="margin-top: 0;color: #333;font-size:15px;font-weight: normal;">当前位置 ： 首页</h4>
-</div>    
+		  <h4 style="margin-top: 0;color: #333;font-size:15px;font-weight: normal;">
+			  当前位置&nbsp;:&nbsp;<a href="/" >首页&nbsp;</a>»&nbsp;文章分类&nbsp;:&nbsp;
+			
+				<a href="/categories/c-c/">c/c++</a>
+			
+		  &nbsp;</a>»&nbsp; 位运算 </h4>
+		</div>
+
 		<div id="top_search"></div>
+				 
 		
-		<!-- title and entry -->
-		
-            <div class="archive">	  
-				<div id="archives"> 
+
+		<div class="archive">	  
+			<div id="archives"> 
 				
-					<header class="entry-header">
-						<div class="entry-info" text-transform : capitalize>				     					      	      
+				<header class="entry-header">
+					<div class="entry-info" text-transform : capitalize>				     					      	      
 							
-							  <span class="entry-date">
-								  <span class="fa fa-calendar" aria-hidden="true"></span>
-								  2016-05-24						      
-							  </span>
+						<span class="entry-date">
+							<span class="fa fa-calendar" aria-hidden="true"></span>
+							2016-05-24						      
+						</span>
 							  
-							  <span class="author vcard">
-								  <span class="fa fa-user" aria-hidden="true"></span>
-								  <a href="/">vbirds</a> 	
-							  </span>
+							  
+						<span class="author vcard">
+							<span class="fa fa-user" aria-hidden="true"></span>
+							<a href="/">vbirds</a> 	 	
+						</span>
 
-
-
-							<span class="comments-link">
-								<span class="fa fa-comments" aria-hidden="true"></span>
-								<span class="ds-thread-count" data-thread-key="2016/05/24/位运算/">暂无评论</span>
-							</span>	
+						<span class="comments-link">
+							<span class="fa fa-comments" aria-hidden="true"></span>
+							<span class="ds-thread-count" data-thread-key="2016/05/24/位运算/">暂无评论</span>
+						</span>						
 							
-						</div>	
+					</div>	
+
 									
-						<h3 class="entry-title"> 
-							  <a href="/2016/05/24/位运算/" >位运算</a>
-						</h3>
-
-					</header>
-
-					<div class="entry">
-  <div class="row">
-	
-	
-		<p>二进制位<br>一个字节由8个位组成<br><figure class="highlight plain"><figcaption><span>0000  : 0 (OX00)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">```0000 0001  : 1 (OX01)``` </span><br><span class="line">```0000 0010  : 2 (OX02)``` </span><br><span class="line">```0000 0011  : 3 (OX03)``` </span><br><span class="line">```0000 0100  : 4 (OX04)``` </span><br><span class="line"></span><br><span class="line">## 二进制的操作</span><br><span class="line"></span><br><span class="line">### 位移</span><br><span class="line">一个 `unsigned char` 由一个字节构成。</span><br><span class="line">**左移运算**：`X&lt;&lt;Y`：</span><br><span class="line">&gt; 将x左移y位，将x最左边的y位丢弃，在右边补y个0。</span><br><span class="line"></span><br><span class="line">**右移运算**：`X&gt;&gt;Y`：</span><br><span class="line">&gt; 将x右移y位，这需要区分x是有符号数还是无符号数。在x是无符号数时，只需将x的最右边的y位丢弃，在左边补上y个0。在x是有符号数时，又分为x是正数还是负数。正数时，同无符号数的处理相同；负数时，将将x的最右边的y位丢弃，在左边补上y个1。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**左移1位**：相当于 乘2</span><br><span class="line">**右移1位**：相当于 除2</span><br><span class="line">要注意可能 溢出 的情况</span><br><span class="line"></span><br><span class="line">优点：移位运算 比 乘除运算 速度更快 更省CPU</span><br><span class="line">```cpp</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    // 0001 0011</span><br><span class="line">    // 1    3</span><br><span class="line">    // 0x13</span><br><span class="line">    // 16 * 1 + 2 + 1</span><br><span class="line"></span><br><span class="line">    unsigned char a = 0x13; // 0001 0011</span><br><span class="line">    unsigned char b = a &lt;&lt; 2; // 0100 1100</span><br><span class="line"></span><br><span class="line">    unsigned char c = b &gt;&gt; 2; // 0001 0011</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+					<h3 class="entry-title"> 
+						<a href="/2016/05/24/位运算/" >位运算</a>
+					</h3>		
+						
+					<span style="font-size:15px"><p>二进制位<br>一个字节由8个位组成<br><figure class="highlight plain"><figcaption><span>0000  : 0 (OX00)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">```0000 0001  : 1 (OX01)``` </span><br><span class="line">```0000 0010  : 2 (OX02)``` </span><br><span class="line">```0000 0011  : 3 (OX03)``` </span><br><span class="line">```0000 0100  : 4 (OX04)``` </span><br><span class="line"></span><br><span class="line">## 二进制的操作</span><br><span class="line"></span><br><span class="line">### 位移</span><br><span class="line">一个 `unsigned char` 由一个字节构成。</span><br><span class="line">**左移运算**：`X&lt;&lt;Y`：</span><br><span class="line">&gt; 将x左移y位，将x最左边的y位丢弃，在右边补y个0。</span><br><span class="line"></span><br><span class="line">**右移运算**：`X&gt;&gt;Y`：</span><br><span class="line">&gt; 将x右移y位，这需要区分x是有符号数还是无符号数。在x是无符号数时，只需将x的最右边的y位丢弃，在左边补上y个0。在x是有符号数时，又分为x是正数还是负数。正数时，同无符号数的处理相同；负数时，将将x的最右边的y位丢弃，在左边补上y个1。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**左移1位**：相当于 乘2</span><br><span class="line">**右移1位**：相当于 除2</span><br><span class="line">要注意可能 溢出 的情况</span><br><span class="line"></span><br><span class="line">优点：移位运算 比 乘除运算 速度更快 更省CPU</span><br><span class="line">```cpp</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    // 0001 0011</span><br><span class="line">    // 1    3</span><br><span class="line">    // 0x13</span><br><span class="line">    // 16 * 1 + 2 + 1</span><br><span class="line"></span><br><span class="line">    unsigned char a = 0x13; // 0001 0011</span><br><span class="line">    unsigned char b = a &lt;&lt; 2; // 0100 1100</span><br><span class="line"></span><br><span class="line">    unsigned char c = b &gt;&gt; 2; // 0001 0011</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="按位与运算符-amp"><a href="#按位与运算符-amp" class="headerlink" title="按位与运算符 &amp;"></a>按位与运算符 &amp;</h3><blockquote>
 <p>按位与运算符”&amp;”是双目运算符。 其功能是参与运算的两数各对应的二进位相与。只有对应的两个二进位均为1时，结果位才为1，否则为0。参与运算的数以补码方式出现。</p>
 </blockquote>
@@ -179,213 +188,88 @@
 <h4 id="判断一个数的奇偶性"><a href="#判断一个数的奇偶性" class="headerlink" title="判断一个数的奇偶性"></a>判断一个数的奇偶性</h4><p>判断奇偶性，实质是判断最后一位是否是1.<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    判断一个数的奇偶性.返回1，为奇数;返回0，为偶数 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isOdd</span><span class="params">(<span class="keyword">int</span> num)</span>  </span><br><span class="line"></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> num &amp; <span class="number">1</span> == <span class="number">1</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="求一个数的绝对值"><a href="#求一个数的绝对值" class="headerlink" title="求一个数的绝对值"></a>求一个数的绝对值</h4><p>下面的方法实现的基础是将n右移31位，可以获得n的符号。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    取绝对值 </span><br><span class="line">    n右移31位，可以获得n的符号。若n为正数，得到0；若n为负数，得到 -1 </span><br><span class="line">     </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myAbs</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (n ^ n &gt;&gt; <span class="number">31</span>) - (n &gt;&gt; <span class="number">31</span>);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h4 id="求两个数的平均值"><a href="#求两个数的平均值" class="headerlink" title="求两个数的平均值"></a>求两个数的平均值</h4><p>第一种方法较为普遍且简单，不多说了。第二种方法，需要知道的是，<code>( m ^ n ) &gt;&gt; 1</code>得到的结果是m和n其中一个数的有些位为1的值的一半，<code>m &amp; n</code>得到的结果是m 和n都为1的那些位，两个结果相加得到m和n的平均数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span><br><span class="line">    求m和n的平均数 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getAverage</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> (m + n) &gt;&gt; <span class="number">1</span>;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">/* </span><br><span class="line">    求m和n的平均数 </span><br><span class="line">    (m ^ n) &gt;&gt; 1 -&gt; 获得m和n两个数中一个数的某些位为1的一半 </span><br><span class="line">    m &amp; n -&gt; 获得m和n两个数中都为1的某些位 </span><br><span class="line">*/</span>  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getAverage_2</span><span class="params">(<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span></span>&#123;  </span><br><span class="line">    <span class="keyword">return</span> ((m ^ n) &gt;&gt; <span class="number">1</span>) + (m &amp; n);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</span>
+				</header>
 
-	
-	...</div>
-</div>
-
-
-					<footer class="entry-meta">					  
-						<a href="/2016/05/24/位运算/" class="more-link"><span class="fa fa-link" aria-hidden="true"></span>  阅读全文</a>	
-					</footer>
-
-				</div>	
-
-             </div>
-		
-            <div class="archive">	  
-				<div id="archives"> 
+				<!-- share -->
 				
-					<header class="entry-header">
-						<div class="entry-info" text-transform : capitalize>				     					      	      
-							
-							  <span class="entry-date">
-								  <span class="fa fa-calendar" aria-hidden="true"></span>
-								  2016-04-13						      
-							  </span>
-							  
-							  <span class="author vcard">
-								  <span class="fa fa-user" aria-hidden="true"></span>
-								  <a href="/">vbirds</a> 	
-							  </span>
+					
 
+					
+     <footer class="entry-meta">      
 
+	    <div class="fenlei" style="font-size:13.5px">
+			<span class="entry-categories">
+				<span class="fa fa-folder" aria-hidden="true"></span> 
 
-							<span class="comments-link">
-								<span class="fa fa-comments" aria-hidden="true"></span>
-								<span class="ds-thread-count" data-thread-key="2016/04/13/python-批量下载图片/">暂无评论</span>
-							</span>	
-							
-						</div>	
-									
-						<h3 class="entry-title"> 
-							  <a href="/2016/04/13/python-批量下载图片/" >python   批量下载图片</a>
-						</h3>
-
-					</header>
-
-					<div class="entry">
-  <div class="row">
-	
-           
-              <div class="thumbnail"><a href="/2016/04/13/python-批量下载图片/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/pythonpython.jpg" alt="python   批量下载图片"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p>首先我们先分析这个程序，这个程序的功能从网页批量下载图片，既然是网页下载，无非有这三个步骤：</p>
-<ol>
-<li>先得到网页。得到网页，以便程序分析网页中的图片连接。</li>
-<li>解析网页。分析网页，从中取出所有图片连接。</li>
-<li>下载。通过得到的图片连接下载图片。</li>
-</ol>
-<p>分析完成后我们开始编写程序：<br>
-	
-	...</div>
-</div>
-
-
-					<footer class="entry-meta">					  
-						<a href="/2016/04/13/python-批量下载图片/" class="more-link"><span class="fa fa-link" aria-hidden="true"></span>  阅读全文</a>	
-					</footer>
-
-				</div>	
-
-             </div>
-		
-            <div class="archive">	  
-				<div id="archives"> 
 				
-					<header class="entry-header">
-						<div class="entry-info" text-transform : capitalize>				     					      	      
-							
-							  <span class="entry-date">
-								  <span class="fa fa-calendar" aria-hidden="true"></span>
-								  2016-03-28						      
-							  </span>
-							  
-							  <span class="author vcard">
-								  <span class="fa fa-user" aria-hidden="true"></span>
-								  <a href="/">vbirds</a> 	
-							  </span>
-
-
-
-							<span class="comments-link">
-								<span class="fa fa-comments" aria-hidden="true"></span>
-								<span class="ds-thread-count" data-thread-key="2016/03/28/安装libevent开发库/">暂无评论</span>
-							</span>	
-							
-						</div>	
-									
-						<h3 class="entry-title"> 
-							  <a href="/2016/03/28/安装libevent开发库/" >安装libevent开发库</a>
-						</h3>
-
-					</header>
-
-					<div class="entry">
-  <div class="row">
-	
-           
-              <div class="thumbnail"><a href="/2016/03/28/安装libevent开发库/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programerlibevent%E5%9B%BE%E7%89%87.png" alt="安装libevent开发库"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p>为了稳定性，我选 <code>2.0.21-stable</code> 版本。在安装中注意要以<code>root</code>用户身份运行。<br>
-	
-	...</div>
-</div>
-
-
-					<footer class="entry-meta">					  
-						<a href="/2016/03/28/安装libevent开发库/" class="more-link"><span class="fa fa-link" aria-hidden="true"></span>  阅读全文</a>	
-					</footer>
-
-				</div>	
-
-             </div>
-		
-            <div class="archive">	  
-				<div id="archives"> 
+					<a href="/categories/c-c/">c/c++</a>
 				
-					<header class="entry-header">
-						<div class="entry-info" text-transform : capitalize>				     					      	      
-							
-							  <span class="entry-date">
-								  <span class="fa fa-calendar" aria-hidden="true"></span>
-								  2016-03-27						      
-							  </span>
-							  
-							  <span class="author vcard">
-								  <span class="fa fa-user" aria-hidden="true"></span>
-								  <a href="/">vbirds</a> 	
-							  </span>
 
-
-
-							<span class="comments-link">
-								<span class="fa fa-comments" aria-hidden="true"></span>
-								<span class="ds-thread-count" data-thread-key="2016/03/27/开博——记录程序员的成长/">暂无评论</span>
-							</span>	
-							
-						</div>	
-									
-						<h3 class="entry-title"> 
-							  <a href="/2016/03/27/开博——记录程序员的成长/" >开博——记录程序员的成长</a>
-						</h3>
-
-					</header>
-
-					<div class="entry">
-  <div class="row">
-	
-           
-              <div class="thumbnail"><a href="/2016/03/27/开博——记录程序员的成长/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/programer%E7%A8%8B%E5%BA%8F%E5%91%98.jpg" alt="开博——记录程序员的成长"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p>这是我开博的第一片博客，我久思冥想不知道该写些什么。人们对事情的开头总是寄托了自己美好的愿想，常言道“善始善终”，一个好的开头总是能给人看到希望，给人坚持走下去的动力。<br>
-	
-	...</div>
-</div>
-
-
-					<footer class="entry-meta">					  
-						<a href="/2016/03/27/开博——记录程序员的成长/" class="more-link"><span class="fa fa-link" aria-hidden="true"></span>  阅读全文</a>	
-					</footer>
-
-				</div>	
-
-             </div>
-		
-
-		<!-- pagination -->
-		<div>
-			<center>
+			</span>
 			
+			<span class="entry-tags">        
+				<span class="fa fa-tags" aria-hidden="true"></span> 
 
+				
+					<a href="/tags/位运算/">位运算</a>&nbsp;
+				
 
-			</center>
+			</span>
 		</div>
+
+     
+		<!-- JiaThis Button BEGIN -->
+		<div class="jiathis_style" style="float:right;">
+			<span class="jiathis_txt">分享到：</span>
+			<a class="jiathis_button_qzone">QQ空间</a>
+			<a class="jiathis_button_tsina">新浪微博</a>
+			<a class="jiathis_button_weixin">微信</a>
+			<a class="jiathis_button_copy">复制</a>
+			<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+			<a class="jiathis_counter_style"></a>
+		</div>
+		<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+		<!-- JiaThis Button END -->
+		<br>
+    </footer>
+
+
+				
+			</div>	
+		</div>	 	        
+
+		 
+				
+
+				
+				   <p class="p2">下一篇 <a href="/2016/04/13/python-批量下载图片/">python   批量下载图片</a></p> 
+			
 		
-	</div> <!-- col-md-9 -->
+		<!-- comment -->
+		
+<section id="comment">
+  
+  	 <div class="ds-thread" data-thread-key="2016/05/24/位运算/" data-title="位运算" data-url="http://yoursite.com/2016/05/24/位运算/"></div>  
+  
+</section>
+
+		
+	</div> <!-- col-md-9/col-md-12 -->	
 
 	
-		<div class="col-md-3">
-	<div id="sidebar">
-		
-				
+		<div id="side_meta">
+			
+      <div class="col-md-3">
+	      <div id="sidebar">
+	      
   <div class="form-group has-success has-feedback" id="site_search">
     <form class="site-search-form">
         <input type="text" id="st-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control" />
     </form>
   </div>  
 
-			
-				<style type="text/css">
+	      <style type="text/css">
   .cls_container{height:24px;overflow:hidden;}
   .cls_container ul{list-style-type:none;margin:0;padding:0;margin-left:0px;}
   .cls_container ul li{height:24px;line-height:24px;float:left;display:inline;}
@@ -468,8 +352,18 @@
 	var myscroll=new Scroll("myscroll",24);
 </script>
 
-			
-				
+
+	      <!-- toc -->	      
+	      
+		<div class="widget">
+		    <span style="font-size: 14px font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">本文目录 <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a></span>
+		    <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#按位与运算符-amp"><span class="toc-article-text">按位与运算符 &</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#按位或运算符"><span class="toc-article-text">按位或运算符 |</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#异或运算符"><span class="toc-article-text">异或运算符 ^</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#按位取反"><span class="toc-article-text">按位取反 ~</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#计算技巧"><span class="toc-article-text">计算技巧</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#检查state的第pos位是否为1"><span class="toc-article-text">检查state的第pos位是否为1</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#将state的第pos位的值设为1"><span class="toc-article-text">将state的第pos位的值设为1</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#将state的第pos位的值设为0"><span class="toc-article-text">将state的第pos位的值设为0</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#计算一个数的二进制中1的个数"><span class="toc-article-text">计算一个数的二进制中1的个数</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#判断一个数是否是2的n次方"><span class="toc-article-text">判断一个数是否是2的n次方</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#整数n经过多少步可以变为整数m"><span class="toc-article-text">整数n经过多少步可以变为整数m</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获得最大的int值"><span class="toc-article-text">获得最大的int值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#获得最小的int值"><span class="toc-article-text">获得最小的int值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#判断一个数的奇偶性"><span class="toc-article-text">判断一个数的奇偶性</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#求一个数的绝对值"><span class="toc-article-text">求一个数的绝对值</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#求两个数的平均值"><span class="toc-article-text">求两个数的平均值</span></a></li></ol></li></ol>
+		    </div>
+		</div>
+	      	      
+
+	      
 	<div class="widget">
 		<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">分类目录</h4>
 		<ul class="tag_box inline list-unstyled">
@@ -484,28 +378,26 @@
 		
 		</ul>
 	</div>
-
-			
-				
+	
+	      
 	<div class="widget">
 		<h4 style="font-weight: bold; color: #333 ">标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
-		
 			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
-			<li><a href="/tags/位运算/">位运算<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
 		
 			<li><a href="/tags/服务器开发/">服务器开发<span>1</span></a></li>
+		
+			<li><a href="/tags/位运算/">位运算<span>1</span></a></li>
 		
 		 
 		</ul>
 	</div>
 
 
-			
-				
+	      
 <div class="widget">
 	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">友情链接</h4>
 	<ul class="blogroll list-unstyled">
@@ -518,8 +410,7 @@
 </div>
 
 
-			
-				<div class="widget">
+	      <div class="widget">
 	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">近期评论</h4>
 	<ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="0" data-show-admin="1" data-excerpt-length="100" ></ul>
 	
@@ -537,19 +428,34 @@
 </div>
 
 
-
-			
-				<section id="recent-visitors" class="widget widget_recent_comments">
+	
+	      <section id="recent-visitors" class="widget widget_recent_comments">
 	<h4 style="font-weight: bold; color: #333;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif">最近访客</h4>
   	<div class="panelbody clearfix"><ul class="ds-recent-visitors" data-num-items="30"></ul></div>
-</section>
-			  
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
+</section>    
+	      </div> <!-- sidebar -->
+      </div> <!-- col-md-3 -->
 
-	
-	
-</div> <!-- row-fluid -->
+		</div>
+			
+
+</div><!-- row -->
+
+
+	<script type="text/javascript">
+	  var duoshuoQuery = { short_name: 'vbirds' };
+	  (function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';
+		ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+	  })();
+	</script>
+
+
+
 	</div>
   </div>
   <div class="container-narrow">
