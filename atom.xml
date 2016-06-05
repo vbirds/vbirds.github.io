@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-04T09:27:31.883Z</updated>
+  <updated>2016-06-05T08:18:15.546Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,131 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>STL学习之容器（1）vector（包含c++11）</title>
+    <link href="http://yoursite.com/2016/06/05/STL%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%AE%B9%E5%99%A8%EF%BC%881%EF%BC%89vector%EF%BC%88%E5%8C%85%E5%90%ABc++11%EF%BC%89/"/>
+    <id>http://yoursite.com/2016/06/05/STL学习之容器（1）vector（包含c++11）/</id>
+    <published>2016-06-05T08:12:57.299Z</published>
+    <updated>2016-06-05T08:18:15.546Z</updated>
+    
+    <content type="html">&lt;p&gt;&lt;code&gt;vector&lt;/code&gt;是一个线性顺序结构。相当于数组，但其大小可以不预先指定，并且自动扩展。它可以像数组一样被操作，由于它的特性我们完全可以将&lt;code&gt;vector&lt;/code&gt;看作动态数组。&lt;/p&gt;
+&lt;h3 id=&quot;vector创建&quot;&gt;&lt;a href=&quot;#vector创建&quot; class=&quot;headerlink&quot; title=&quot;vector创建&quot;&gt;&lt;/a&gt;vector创建&lt;/h3&gt;&lt;p&gt;在创建一个vector后，它会自动在内存中分配一块连续的内存空间进行数据存储，初始的空间大小可以预先指定也可以由vector默认指定，这个大小即&lt;code&gt;capacity()&lt;/code&gt;函数的返回值。&lt;br&gt;&lt;code&gt;vector&lt;/code&gt;的创建包括四种方式（c++98):&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;直接声明一个空vector&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;first;```&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;2. 声明元素个数和元素值&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;```std::vector&amp;lt;int&amp;gt; second (4,100);```声明了4个值为100的vector。&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3. 用迭代器实现赋值构造&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;```std::vector&amp;lt;int&amp;gt; third (second.begin(),second.end());&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;引用另一个vector作为构造参数&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;figcaption&gt;&lt;span&gt;fourth (third);```拷贝了third的元素。&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;!--more--&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;c++11 里增加了引用list作为构造参数的支持&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;```cpp&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;std::list&amp;lt;int&amp;gt; first(2,3);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;std::vector&amp;lt;int&amp;gt; second(first);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;vector里的迭代器&quot;&gt;&lt;a href=&quot;#vector里的迭代器&quot; class=&quot;headerlink&quot; title=&quot;vector里的迭代器&quot;&gt;&lt;/a&gt;vector里的迭代器&lt;/h3&gt;&lt;p&gt;vector的迭代器有两种：&lt;code&gt;iterator&lt;/code&gt; &lt;code&gt;reverse_iterator&lt;/code&gt;。c++11又增加了两种支持 &lt;code&gt;const_iterator&lt;/code&gt; 和 &lt;code&gt;const_reverse_iterator&lt;/code&gt;。类型为const的迭代器不允许对指向的数据进行修改。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;类型&lt;/th&gt;
+&lt;th&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;begin&lt;/td&gt;
+&lt;td&gt;返回指向vector首部的iterator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;end&lt;/td&gt;
+&lt;td&gt;返回指向vector结尾的iterator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rbegin&lt;/td&gt;
+&lt;td&gt;返回一个(reverse_iterator)反向迭代器指向最后一个元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;rend&lt;/td&gt;
+&lt;td&gt;返回一个(reverse_iterator)反向迭代器指向第一个元素（被认为是反向的结束）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cbegin(c++11)&lt;/td&gt;
+&lt;td&gt;返回指向vector首部const_iterator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;cend(c++11)&lt;/td&gt;
+&lt;td&gt;返回指向vector结尾的const_iterator&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;crbegin(c++11)&lt;/td&gt;
+&lt;td&gt;返回一个(const_reverse_iterator)反向迭代器指向第一个元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;crend(c++11)&lt;/td&gt;
+&lt;td&gt;返回一个(const_reverse_iterator)反向迭代器指向最后一个元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;vector操作&quot;&gt;&lt;a href=&quot;#vector操作&quot; class=&quot;headerlink&quot; title=&quot;vector操作&quot;&gt;&lt;/a&gt;vector操作&lt;/h3&gt;&lt;p&gt;vector的操作分为 &lt;strong&gt;容量相关&lt;/strong&gt;、&lt;strong&gt;元素访问&lt;/strong&gt;、&lt;strong&gt;元素修改&lt;/strong&gt;&lt;/p&gt;
+&lt;h4 id=&quot;容量相关&quot;&gt;&lt;a href=&quot;#容量相关&quot; class=&quot;headerlink&quot; title=&quot;容量相关&quot;&gt;&lt;/a&gt;容量相关&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;size：返回容器元素个数&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector size: %d\n&amp;quot;, v2.size());&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;max_size：返回vector能装的最大元素个数&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector max_size: %d\n&amp;quot;, v2.max_size());&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;capacity：返回vector当前的容量&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector capacity: %d\n&amp;quot;, v2.capacity());&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;empty：判断元素是否 为空&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector is empty? : %s\n&amp;quot;, v4.empty()? &amp;quot;yes&amp;quot; : &amp;quot;no&amp;quot;);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;reserve：修改当前vector的容量&lt;/p&gt;
+&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;gt; bar;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sz = bar.capacity();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bar.reserve(&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;resize(size_type  n)：删除或添加元素以满足vector当前的容量。如果n小于当前容量,则减少到第n个元素,删除那些超出的部分。如果n大于当前容器大小,末尾的内容由插入了尽可能多的元素需要达到的大小n。&lt;/p&gt;
+&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;myvector.resize(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;myvector.resize(&lt;span class=&quot;number&quot;&gt;8&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;myvector.resize(&lt;span class=&quot;number&quot;&gt;12&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;元素访问&quot;&gt;&lt;a href=&quot;#元素访问&quot; class=&quot;headerlink&quot; title=&quot;元素访问&quot;&gt;&lt;/a&gt;元素访问&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;operator[]：可像数组一样用访问下标元素值&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector[2]: %d\n&amp;quot;, v5[2]);&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;at(size_type n)：返回位置n元素的引用&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector at(2): %d\n&amp;quot;, v5.at(2));&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;front：返回第一个元素的引用&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector front: %d\n&amp;quot;, v5.front());&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;back：返回最后一个元素的引用&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector back: %d\n&amp;quot;, v5.back());&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;data(c++11)&lt;/strong&gt;：直接返回一个指针指向的内存数组向量存储的所有元素&lt;br&gt;&lt;code&gt;printf(&amp;quot;vector data(1): %d\n&amp;quot;, (v5.data())[1]);&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;元素修改&quot;&gt;&lt;a href=&quot;#元素修改&quot; class=&quot;headerlink&quot; title=&quot;元素修改&quot;&gt;&lt;/a&gt;元素修改&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;assign：assign有两种重载 &lt;code&gt;void assign (InputIterator first, InputIterator last);&lt;/code&gt; 和 &lt;code&gt;void assign (size_type n, const value_type&amp;amp; val);&lt;/code&gt;第一种用迭代器为vector添加值，第二种声明添加元素的个数和元素的值。&lt;br&gt;&lt;code&gt;v5.assign(5, 11); //添加5个值为11的元素到vector里&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;push_back(const value_type&amp;amp; val) :添加一个新元素到vector末尾。&lt;/li&gt;
+&lt;li&gt;pop_back：&lt;code&gt;删除最后一个元素&lt;/code&gt;&lt;br&gt;&lt;code&gt;v5.pop_back();&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;erase：同样有两种重载 &lt;code&gt;erase (iterator position);&lt;/code&gt; 和 &lt;code&gt;erase (iterator first, iterator last);&lt;/code&gt; c++11对这两个重载重新定义了&lt;code&gt;erase (const_iterator position);&lt;/code&gt;和 &lt;code&gt;erase (const_iterator first, const_iterator last);&lt;/code&gt;&lt;br&gt;&lt;code&gt;v5.erase(v5.begin(), v5.end()); //清除从 begin()到end()的元素&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;clear：清除所有元素&lt;br&gt;&lt;code&gt;v5.clear();   // 将vector元素全部清除&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;insert：insert的重载有三个，定义如下：&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;single &lt;span class=&quot;title&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)&lt;/span&gt;	iterator &lt;span class=&quot;title&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(iterator position, &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; value_type&amp;amp; val)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          fill (&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;)	&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(iterator position, size_type n, &lt;span class=&quot;keyword&quot;&gt;const&lt;/span&gt; value_type&amp;amp; val)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;         range (&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;)	&lt;span class=&quot;keyword&quot;&gt;template&lt;/span&gt; &amp;lt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; InputIterator&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                        &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(iterator position, InputIterator first, InputIterator last)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;insert操作可以在指定位置插入元素。在&lt;strong&gt;c++11&lt;/strong&gt;中将定义中的 iterator修改成了const_iterator。&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// inserting into a vector&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;vector&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;gt; myvector (&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;gt;::iterator it;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  it = myvector.begin();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  it = myvector.insert ( it , &lt;span class=&quot;number&quot;&gt;200&lt;/span&gt; );&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  myvector.insert (it,&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;comment&quot;&gt;// &quot;it&quot; no longer valid, get a new one:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  it = myvector.begin();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;gt; anothervector (&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;400&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  myvector.insert (it+&lt;span class=&quot;number&quot;&gt;2&lt;/span&gt;,anothervector.begin(),anothervector.end());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; myarray [] = &amp;#123; &lt;span class=&quot;number&quot;&gt;501&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;502&lt;/span&gt;,&lt;span class=&quot;number&quot;&gt;503&lt;/span&gt; &amp;#125;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  myvector.insert (myvector.begin(), myarray, myarray+&lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&quot;myvector contains:&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (it=myvector.begin(); it&amp;lt;myvector.end(); it++)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&#39; &#39;&lt;/span&gt; &amp;lt;&amp;lt; *it;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&#39;\n&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;emplace(c++11)&lt;/strong&gt;：在指定位置插入一个新元素 &lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;template&lt;/span&gt; &amp;lt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt;... Args&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;iterator &lt;span class=&quot;title&quot;&gt;emplace&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(const_iterator position, Args&amp;amp;&amp;amp;... args)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//c++11 emplace&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;test_emplace&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;vector&lt;/span&gt;&amp;lt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;&amp;gt; v5(&lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; i = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;; i &amp;lt; v5.size(); ++i)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        v5.at(i) = i;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;auto&lt;/span&gt; it = v5.emplace(v5.begin()+&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;100&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v5.emplace(it, &lt;span class=&quot;number&quot;&gt;200&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    v5.emplace(v5.end(), &lt;span class=&quot;number&quot;&gt;300&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&quot;v5 contains: &quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; (&lt;span class=&quot;keyword&quot;&gt;auto&lt;/span&gt;&amp;amp; x: v5)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt;&amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&#39; &#39;&lt;/span&gt; &amp;lt;&amp;lt; x;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt;&amp;lt;&amp;lt; &lt;span class=&quot;built_in&quot;&gt;endl&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h3 id=&quot;vector的重分配&quot;&gt;&lt;a href=&quot;#vector的重分配&quot; class=&quot;headerlink&quot; title=&quot;vector的重分配&quot;&gt;&lt;/a&gt;vector的重分配&lt;/h3&gt;&lt;p&gt;当存储的数据超过分配的空间时vector会重新分配一块内存块，但这样的分配是很耗时的，在重新分配空间时它会做这样的动作：&lt;br&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/STLvector%E7%9A%84%E9%87%8D%E5%88%86%E9%85%8D.png&quot; alt=&quot;vector的重分配&quot;&gt;&lt;br&gt;如果vector保存的数据量很大时，这样的操作一定会导致糟糕的性能（这也是vector 被设计成比较容易拷贝的值类型的原因）。所以说vector不是在什么情况下性能都好，只有在预先知道它大小的情况下vector 的性能才是最优的。&lt;/p&gt;
+&lt;h3 id=&quot;vector的特点&quot;&gt;&lt;a href=&quot;#vector的特点&quot; class=&quot;headerlink&quot; title=&quot;vector的特点&quot;&gt;&lt;/a&gt;vector的特点&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;指定一块如同数组一样的连续存储，但空间可以动态扩展。即它可以像数组一样操作，并且可以进行动态操作。通常体现在push_back() pop_back() 。&lt;/li&gt;
+&lt;li&gt;随机访问方便，它像数组一样被访问，即支持[ ] 操作符和vector.at()&lt;/li&gt;
+&lt;li&gt;节省空间，因为它是连续存储，在存储数据的区域都是没有被浪费的，但是要明确一点vector 大多情况下并不是满存的，在未存储的区域实际是浪费的。&lt;/li&gt;
+&lt;li&gt;在内部进行插入、删除操作效率非常低，这样的操作基本上是被禁止的。Vector被设计成只能在后端进行追加和删除操作，其原因是vector 内部的实现是按照顺序表的原理。&lt;/li&gt;
+&lt;li&gt;只能在vector 的最后进行push 和pop ，不能在vector 的头进行push 和pop 。&lt;/li&gt;
+&lt;li&gt;当动态添加的数据超过vector默认分配的大小时要进行内存的重新分配、拷贝与释放，这个操作非常消耗性能。 所以要vector达到最优的性能，最好在创建vector时就指定其空间大小。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;[1] &lt;a href=&quot;http://www.cplusplus.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;C++ Reference&lt;/a&gt;&lt;br&gt;[2] &lt;a href=&quot;http://zh.wikipedia.org/wiki/%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Wiki：标准模板库&lt;/a&gt; &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;vector&lt;/code&gt;是一个线性顺序结构。相当于数组，但其大小可以不预先指定，并且自动扩展。它可以像数组一样被操作，由于它的特性我们完全可以将&lt;code&gt;vector&lt;/code&gt;看作动态数组。&lt;/p&gt;
+&lt;h3 id=&quot;vector创建&quot;&gt;&lt;a href=&quot;#vector创建&quot; class=&quot;headerlink&quot; title=&quot;vector创建&quot;&gt;&lt;/a&gt;vector创建&lt;/h3&gt;&lt;p&gt;在创建一个vector后，它会自动在内存中分配一块连续的内存空间进行数据存储，初始的空间大小可以预先指定也可以由vector默认指定，这个大小即&lt;code&gt;capacity()&lt;/code&gt;函数的返回值。&lt;br&gt;&lt;code&gt;vector&lt;/code&gt;的创建包括四种方式（c++98):&lt;br&gt;
+    
+    </summary>
+    
+      <category term="c/c++" scheme="http://yoursite.com/categories/c-c/"/>
+    
+      <category term="STL" scheme="http://yoursite.com/categories/c-c/STL/"/>
+    
+    
+      <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
+    
+      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
+    
+  </entry>
   
   <entry>
     <title>UNIX进程环境 （一）</title>
