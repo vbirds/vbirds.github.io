@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Unix环境高级编程（三）信号专题（1） | Vbirds&#39;s Blog</title>
+  <meta name="author" content="vbirds">
+  
+  <meta name="description" content="中断的概念要了解信号的概念，先要了解什么是中断？中断是系统对于异步事件的响应，所谓异步事件的响应就是指：
+
+进程执行代码的过程中可以随时被打断，然后去执行异常处理程序生活中的中断和计算机系统中的中断。
+
+中断的组成包括：
+
+中断信号
+中断源
+现场信息
+中断处理程序
+中断向量表
+
+这和我们生活中的一些例子很像，比如：张三看书，设置闹钟，厨房烧水。闹钟发出中断信号，张三把书合好(第20页)，去厨房把开水事情处理好，张三重新打开20页进行阅读。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Unix环境高级编程（三）信号专题（1）"/>
+  <meta property="og:site_name" content="Vbirds&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">Vbirds&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Unix环境高级编程（三）信号专题（1）</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h3 id="中断的概念"><a href="#中断的概念" class="headerlink" title="中断的概念"></a>中断的概念</h3><p>要了解信号的概念，先要了解什么是中断？中断是系统对于异步事件的响应，所谓异步事件的响应就是指：</p>
+<blockquote>
+<p>进程执行代码的过程中可以随时被打断，然后去执行异常处理程序生活中的中断和计算机系统中的中断。</p>
+</blockquote>
+<p>中断的组成包括：</p>
+<ul>
+<li>中断信号</li>
+<li>中断源</li>
+<li>现场信息</li>
+<li>中断处理程序</li>
+<li>中断向量表</li>
+</ul>
+<p>这和我们生活中的一些例子很像，比如：张三看书，设置闹钟，厨房烧水。闹钟发出中断信号，张三把书合好(第20页)，去厨房把开水事情处理好，张三重新打开20页进行阅读。<br><a id="more"></a></p>
+<p>其中中断分为两类：硬中断和软中断<br>硬中断也称外部中断，是指由外部设备通过硬件请求的方式产生的中断，也称为硬件中断。<br>软中断也称内部中断，是由CPU运行程序错误或执行内部程序调用引起的一种中断，也称为软件中断。</p>
+<h3 id="信号的概念"><a href="#信号的概念" class="headerlink" title="信号的概念"></a>信号的概念</h3><p>信号是在软件层次上对中断的一种模拟，所以通常把它称为是软中断。<br>首先，每个信号都有一个名字。这些名字都以三个字符<strong>SIG</strong>开头。例如，<strong>SIGABRT</strong>是夭折信号，当进程调用<code>abort</code>函数时产生这种信号。<br>信号的定义在头文件<code>&lt;signal.h&gt;</code>中这些信号都被定义为正整数，范围在1~64。其中1~32号信号是不可重入信号，33~64为前32种不可重入信号的可重入版本，其名称在不可重入信号名称加<code>R</code>。我们可以通过命令<code>kill -l</code>来查看Linux内核支持的信号，64中信号如下：<br><img src="http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E4%BF%A1%E5%8F%B7.png" alt="enter description here"></p>
+<h3 id="信号和中断的异同"><a href="#信号和中断的异同" class="headerlink" title="信号和中断的异同"></a>信号和中断的异同</h3><ul>
+<li>信号与中断的相似点：<ol>
+<li>采用了相同的异步通信方式；</li>
+<li>当检测出有信号或中断请求时，都暂停正在执行的程序而转去执行相应的处理程序；</li>
+<li>都在处理完毕后返回到原来的断点；</li>
+<li>对信号或中断都可进行屏蔽。</li>
+</ol>
+</li>
+<li>信号与中断的区别：<ol>
+<li>中断有优先级，而信号没有优先级，所有的信号都是平等的；</li>
+<li>信号处理程序是在用户态下运行的，而中断处理程序是在核心态下运行；</li>
+<li>中断响应是及时的，而信号响应通常都有较大的时间延迟。</li>
+</ol>
+</li>
+</ul>
+<h3 id="信号名称及常用信号"><a href="#信号名称及常用信号" class="headerlink" title="信号名称及常用信号"></a>信号名称及常用信号</h3><table>
+<thead>
+<tr>
+<th>信号名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIGABRT</td>
+<td>进程停止运行</td>
+</tr>
+<tr>
+<td>SIGALRM</td>
+<td>警告钟</td>
+</tr>
+<tr>
+<td>SIGFPE</td>
+<td>算述运算例外</td>
+</tr>
+<tr>
+<td>SIGHUP</td>
+<td>系统挂断</td>
+</tr>
+<tr>
+<td>SIGILL</td>
+<td>非法指令</td>
+</tr>
+<tr>
+<td>SIGINT</td>
+<td>终端中断</td>
+</tr>
+<tr>
+<td>SIGKILL</td>
+<td>停止进程(此信号不能被忽略或捕获)</td>
+</tr>
+<tr>
+<td>SIGPIPE</td>
+<td>向没有读者的管道写入数据</td>
+</tr>
+<tr>
+<td>SIGSEGV</td>
+<td>无效内存段访问</td>
+</tr>
+<tr>
+<td>SIGQUIT</td>
+<td>终端退出</td>
+</tr>
+<tr>
+<td>SIGTERM</td>
+<td>终止</td>
+</tr>
+<tr>
+<td>SIGUSR1</td>
+<td>用户定义信号1</td>
+</tr>
+<tr>
+<td>SIGUSR2</td>
+<td>用户定义信号2</td>
+</tr>
+<tr>
+<td>SIGCHLD</td>
+<td>子进程已经停止或退出</td>
+</tr>
+</tbody>
+</table>
+<h3 id="信号的处理"><a href="#信号的处理" class="headerlink" title="信号的处理"></a>信号的处理</h3><p>进程对信号有三种处理：</p>
+<ol>
+<li>忽略信号<br>不采取任何操作、有两个信号不能被忽略：SIGKILL（9号信号）和SIGSTOP。</li>
+<li>捕获并处理信号<br>内核中断正在执行的代码，转去执行先前注册过的处理程序。SIGKILL（9号信号）和SIGSTOP不能被捕获。</li>
+<li>执行默认操作<br>默认操作通常是终止进程，这取决于被发送的信号。</li>
+</ol>
+<p>这里要理解为什么以上两种信号（SIGKILL和SIGSTOP）不能被忽略。其原因是：如果应用程序可以忽略这2个信号，系统管理无法杀死、暂停进程，无法对系统进行管理。</p>
+<h3 id="signal函数"><a href="#signal函数" class="headerlink" title="signal函数"></a>signal函数</h3><p>signal函数有两个作用：</p>
+<ol>
+<li>站在应用程序的角度，注册一个信号处理函数；</li>
+<li>忽略信号、设置信号默认处理  信号的安装和恢复。</li>
+</ol>
+<p>其函数定义如下：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*sighandler_t)</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">sighandler_t</span> signal(<span class="keyword">int</span> signum, <span class="keyword">sighandler_t</span> handler);</span><br></pre></td></tr></table></figure></p>
+<p><strong>signum</strong>指定信号种类，<strong>handler</strong>指定信号的处理函数，也可以是下面两个特殊值：SIG_IGN（屏蔽该信号）和 SIG_DFL（恢复默认行为）。<br>signal返回原先的信号处理句柄，出错时返回SIG_ERR，并设置error值。</p>
+<h3 id="singnal编程实战"><a href="#singnal编程实战" class="headerlink" title="singnal编程实战"></a>singnal编程实战</h3><p>我们先来写一个信号处理函数，这个信号处理函数，实现打印信号值得功能，并且判断信号是否是SIGQUIT，如果是就退出进程。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> num)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"recv num:%d \n"</span>, num);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在主函数中，我们注册此信号，并使进程进入暂停此时用户按（ctrl+c）将执行打印函数，程序无法退出，直到用户键入字符‘a’为止，我们让信号恢复默认行为，再执行==ctrl+c==时，程序退出。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span>   tmpchar;</span><br><span class="line">    signal(SIGINT, handler);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"if you input 'a' will recove the default behavior of signal\n"</span>);</span><br><span class="line">    <span class="keyword">while</span>((tmpchar = getchar()) != <span class="string">'a'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	pause();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//让这个信号恢复默认行为</span></span><br><span class="line">    signal(SIGINT, SIG_DFL);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	pause();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"main----end\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/06/10/window下Qt编译Boost（使用MinGW）/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/06/11/Linux信号专题（1）/" data-title="Unix环境高级编程（三）信号专题（1）" data-url="http://yoursite.com/2016/06/11/Linux信号专题（1）/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-06-11 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/c-c/">c/c++<span>7</span></a></li> <li><a href="/categories/c-c/服务器开发/">服务器开发<span>3</span></a></li> <li><a href="/categories/c-c/服务器开发/unix-linux/">unix/linux<span>3</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/c-c/">c/c++<span>7</span></a></li> <li><a href="/tags/信号/">信号<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#中断的概念"><span class="toc-article-text">中断的概念</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#信号的概念"><span class="toc-article-text">信号的概念</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#信号和中断的异同"><span class="toc-article-text">信号和中断的异同</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#信号名称及常用信号"><span class="toc-article-text">信号名称及常用信号</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#信号的处理"><span class="toc-article-text">信号的处理</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#signal函数"><span class="toc-article-text">signal函数</span></a></li><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#singnal编程实战"><span class="toc-article-text">singnal编程实战</span></a></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'vbirds' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 vbirds
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

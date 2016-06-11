@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-10T14:31:36.893Z</updated>
+  <updated>2016-06-11T08:52:44.992Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,158 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unix环境高级编程（三）信号专题（1）</title>
+    <link href="http://yoursite.com/2016/06/11/Linux%E4%BF%A1%E5%8F%B7%E4%B8%93%E9%A2%98%EF%BC%881%EF%BC%89/"/>
+    <id>http://yoursite.com/2016/06/11/Linux信号专题（1）/</id>
+    <published>2016-06-11T02:37:20.387Z</published>
+    <updated>2016-06-11T08:52:44.992Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;中断的概念&quot;&gt;&lt;a href=&quot;#中断的概念&quot; class=&quot;headerlink&quot; title=&quot;中断的概念&quot;&gt;&lt;/a&gt;中断的概念&lt;/h3&gt;&lt;p&gt;要了解信号的概念，先要了解什么是中断？中断是系统对于异步事件的响应，所谓异步事件的响应就是指：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;进程执行代码的过程中可以随时被打断，然后去执行异常处理程序生活中的中断和计算机系统中的中断。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;中断的组成包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;中断信号&lt;/li&gt;
+&lt;li&gt;中断源&lt;/li&gt;
+&lt;li&gt;现场信息&lt;/li&gt;
+&lt;li&gt;中断处理程序&lt;/li&gt;
+&lt;li&gt;中断向量表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这和我们生活中的一些例子很像，比如：张三看书，设置闹钟，厨房烧水。闹钟发出中断信号，张三把书合好(第20页)，去厨房把开水事情处理好，张三重新打开20页进行阅读。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;其中中断分为两类：硬中断和软中断&lt;br&gt;硬中断也称外部中断，是指由外部设备通过硬件请求的方式产生的中断，也称为硬件中断。&lt;br&gt;软中断也称内部中断，是由CPU运行程序错误或执行内部程序调用引起的一种中断，也称为软件中断。&lt;/p&gt;
+&lt;h3 id=&quot;信号的概念&quot;&gt;&lt;a href=&quot;#信号的概念&quot; class=&quot;headerlink&quot; title=&quot;信号的概念&quot;&gt;&lt;/a&gt;信号的概念&lt;/h3&gt;&lt;p&gt;信号是在软件层次上对中断的一种模拟，所以通常把它称为是软中断。&lt;br&gt;首先，每个信号都有一个名字。这些名字都以三个字符&lt;strong&gt;SIG&lt;/strong&gt;开头。例如，&lt;strong&gt;SIGABRT&lt;/strong&gt;是夭折信号，当进程调用&lt;code&gt;abort&lt;/code&gt;函数时产生这种信号。&lt;br&gt;信号的定义在头文件&lt;code&gt;&amp;lt;signal.h&amp;gt;&lt;/code&gt;中这些信号都被定义为正整数，范围在1~64。其中1~32号信号是不可重入信号，33~64为前32种不可重入信号的可重入版本，其名称在不可重入信号名称加&lt;code&gt;R&lt;/code&gt;。我们可以通过命令&lt;code&gt;kill -l&lt;/code&gt;来查看Linux内核支持的信号，64中信号如下：&lt;br&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E4%BF%A1%E5%8F%B7.png&quot; alt=&quot;enter description here&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;信号和中断的异同&quot;&gt;&lt;a href=&quot;#信号和中断的异同&quot; class=&quot;headerlink&quot; title=&quot;信号和中断的异同&quot;&gt;&lt;/a&gt;信号和中断的异同&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;信号与中断的相似点：&lt;ol&gt;
+&lt;li&gt;采用了相同的异步通信方式；&lt;/li&gt;
+&lt;li&gt;当检测出有信号或中断请求时，都暂停正在执行的程序而转去执行相应的处理程序；&lt;/li&gt;
+&lt;li&gt;都在处理完毕后返回到原来的断点；&lt;/li&gt;
+&lt;li&gt;对信号或中断都可进行屏蔽。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;信号与中断的区别：&lt;ol&gt;
+&lt;li&gt;中断有优先级，而信号没有优先级，所有的信号都是平等的；&lt;/li&gt;
+&lt;li&gt;信号处理程序是在用户态下运行的，而中断处理程序是在核心态下运行；&lt;/li&gt;
+&lt;li&gt;中断响应是及时的，而信号响应通常都有较大的时间延迟。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;信号名称及常用信号&quot;&gt;&lt;a href=&quot;#信号名称及常用信号&quot; class=&quot;headerlink&quot; title=&quot;信号名称及常用信号&quot;&gt;&lt;/a&gt;信号名称及常用信号&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;信号名称&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGABRT&lt;/td&gt;
+&lt;td&gt;进程停止运行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGALRM&lt;/td&gt;
+&lt;td&gt;警告钟&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGFPE&lt;/td&gt;
+&lt;td&gt;算述运算例外&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGHUP&lt;/td&gt;
+&lt;td&gt;系统挂断&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGILL&lt;/td&gt;
+&lt;td&gt;非法指令&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGINT&lt;/td&gt;
+&lt;td&gt;终端中断&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGKILL&lt;/td&gt;
+&lt;td&gt;停止进程(此信号不能被忽略或捕获)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGPIPE&lt;/td&gt;
+&lt;td&gt;向没有读者的管道写入数据&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGSEGV&lt;/td&gt;
+&lt;td&gt;无效内存段访问&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGQUIT&lt;/td&gt;
+&lt;td&gt;终端退出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGTERM&lt;/td&gt;
+&lt;td&gt;终止&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGUSR1&lt;/td&gt;
+&lt;td&gt;用户定义信号1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGUSR2&lt;/td&gt;
+&lt;td&gt;用户定义信号2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SIGCHLD&lt;/td&gt;
+&lt;td&gt;子进程已经停止或退出&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;信号的处理&quot;&gt;&lt;a href=&quot;#信号的处理&quot; class=&quot;headerlink&quot; title=&quot;信号的处理&quot;&gt;&lt;/a&gt;信号的处理&lt;/h3&gt;&lt;p&gt;进程对信号有三种处理：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;忽略信号&lt;br&gt;不采取任何操作、有两个信号不能被忽略：SIGKILL（9号信号）和SIGSTOP。&lt;/li&gt;
+&lt;li&gt;捕获并处理信号&lt;br&gt;内核中断正在执行的代码，转去执行先前注册过的处理程序。SIGKILL（9号信号）和SIGSTOP不能被捕获。&lt;/li&gt;
+&lt;li&gt;执行默认操作&lt;br&gt;默认操作通常是终止进程，这取决于被发送的信号。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里要理解为什么以上两种信号（SIGKILL和SIGSTOP）不能被忽略。其原因是：如果应用程序可以忽略这2个信号，系统管理无法杀死、暂停进程，无法对系统进行管理。&lt;/p&gt;
+&lt;h3 id=&quot;signal函数&quot;&gt;&lt;a href=&quot;#signal函数&quot; class=&quot;headerlink&quot; title=&quot;signal函数&quot;&gt;&lt;/a&gt;signal函数&lt;/h3&gt;&lt;p&gt;signal函数有两个作用：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;站在应用程序的角度，注册一个信号处理函数；&lt;/li&gt;
+&lt;li&gt;忽略信号、设置信号默认处理  信号的安装和恢复。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其函数定义如下：&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;span class=&quot;meta-keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;meta-string&quot;&gt;&amp;lt;signal.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;params&quot;&gt;(*sighandler_t)&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt;)&lt;/span&gt;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;sighandler_t&lt;/span&gt; signal(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; signum, &lt;span class=&quot;keyword&quot;&gt;sighandler_t&lt;/span&gt; handler);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;signum&lt;/strong&gt;指定信号种类，&lt;strong&gt;handler&lt;/strong&gt;指定信号的处理函数，也可以是下面两个特殊值：SIG_IGN（屏蔽该信号）和 SIG_DFL（恢复默认行为）。&lt;br&gt;signal返回原先的信号处理句柄，出错时返回SIG_ERR，并设置error值。&lt;/p&gt;
+&lt;h3 id=&quot;singnal编程实战&quot;&gt;&lt;a href=&quot;#singnal编程实战&quot; class=&quot;headerlink&quot; title=&quot;singnal编程实战&quot;&gt;&lt;/a&gt;singnal编程实战&lt;/h3&gt;&lt;p&gt;我们先来写一个信号处理函数，这个信号处理函数，实现打印信号值得功能，并且判断信号是否是SIGQUIT，如果是就退出进程。&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;handler&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; num)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;recv num:%d \n&quot;&lt;/span&gt;, num);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;在主函数中，我们注册此信号，并使进程进入暂停此时用户按（ctrl+c）将执行打印函数，程序无法退出，直到用户键入字符‘a’为止，我们让信号恢复默认行为，再执行==ctrl+c==时，程序退出。&lt;br&gt;&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;char&lt;/span&gt;   tmpchar;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    signal(SIGINT, handler);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;if you input &#39;a&#39; will recove the default behavior of signal\n&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;((tmpchar = getchar()) != &lt;span class=&quot;string&quot;&gt;&#39;a&#39;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	pause();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;//让这个信号恢复默认行为&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    signal(SIGINT, SIG_DFL);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt;(&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    	pause();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;main----end\n&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;中断的概念&quot;&gt;&lt;a href=&quot;#中断的概念&quot; class=&quot;headerlink&quot; title=&quot;中断的概念&quot;&gt;&lt;/a&gt;中断的概念&lt;/h3&gt;&lt;p&gt;要了解信号的概念，先要了解什么是中断？中断是系统对于异步事件的响应，所谓异步事件的响应就是指：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;进程执行代码的过程中可以随时被打断，然后去执行异常处理程序生活中的中断和计算机系统中的中断。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;中断的组成包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;中断信号&lt;/li&gt;
+&lt;li&gt;中断源&lt;/li&gt;
+&lt;li&gt;现场信息&lt;/li&gt;
+&lt;li&gt;中断处理程序&lt;/li&gt;
+&lt;li&gt;中断向量表&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这和我们生活中的一些例子很像，比如：张三看书，设置闹钟，厨房烧水。闹钟发出中断信号，张三把书合好(第20页)，去厨房把开水事情处理好，张三重新打开20页进行阅读。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="c/c++" scheme="http://yoursite.com/categories/c-c/"/>
+    
+      <category term="服务器开发" scheme="http://yoursite.com/categories/c-c/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="unix/linux" scheme="http://yoursite.com/categories/c-c/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/unix-linux/"/>
+    
+    
+      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
+    
+      <category term="信号" scheme="http://yoursite.com/tags/%E4%BF%A1%E5%8F%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>window下Qt编译Boost（使用MinGW）</title>
