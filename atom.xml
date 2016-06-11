@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-11T08:52:44.992Z</updated>
+  <updated>2016-06-11T13:20:34.566Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/06/11/Linux%E4%BF%A1%E5%8F%B7%E4%B8%93%E9%A2%98%EF%BC%881%EF%BC%89/"/>
     <id>http://yoursite.com/2016/06/11/Linux信号专题（1）/</id>
     <published>2016-06-11T02:37:20.387Z</published>
-    <updated>2016-06-11T08:52:44.992Z</updated>
+    <updated>2016-06-11T13:20:34.566Z</updated>
     
     <content type="html">&lt;h3 id=&quot;中断的概念&quot;&gt;&lt;a href=&quot;#中断的概念&quot; class=&quot;headerlink&quot; title=&quot;中断的概念&quot;&gt;&lt;/a&gt;中断的概念&lt;/h3&gt;&lt;p&gt;要了解信号的概念，先要了解什么是中断？中断是系统对于异步事件的响应，所谓异步事件的响应就是指：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -36,7 +36,7 @@
 &lt;/ul&gt;
 &lt;p&gt;这和我们生活中的一些例子很像，比如：张三看书，设置闹钟，厨房烧水。闹钟发出中断信号，张三把书合好(第20页)，去厨房把开水事情处理好，张三重新打开20页进行阅读。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;其中中断分为两类：硬中断和软中断&lt;br&gt;硬中断也称外部中断，是指由外部设备通过硬件请求的方式产生的中断，也称为硬件中断。&lt;br&gt;软中断也称内部中断，是由CPU运行程序错误或执行内部程序调用引起的一种中断，也称为软件中断。&lt;/p&gt;
-&lt;h3 id=&quot;信号的概念&quot;&gt;&lt;a href=&quot;#信号的概念&quot; class=&quot;headerlink&quot; title=&quot;信号的概念&quot;&gt;&lt;/a&gt;信号的概念&lt;/h3&gt;&lt;p&gt;信号是在软件层次上对中断的一种模拟，所以通常把它称为是软中断。&lt;br&gt;首先，每个信号都有一个名字。这些名字都以三个字符&lt;strong&gt;SIG&lt;/strong&gt;开头。例如，&lt;strong&gt;SIGABRT&lt;/strong&gt;是夭折信号，当进程调用&lt;code&gt;abort&lt;/code&gt;函数时产生这种信号。&lt;br&gt;信号的定义在头文件&lt;code&gt;&amp;lt;signal.h&amp;gt;&lt;/code&gt;中这些信号都被定义为正整数，范围在1~64。其中1~32号信号是不可重入信号，33~64为前32种不可重入信号的可重入版本，其名称在不可重入信号名称加&lt;code&gt;R&lt;/code&gt;。我们可以通过命令&lt;code&gt;kill -l&lt;/code&gt;来查看Linux内核支持的信号，64中信号如下：&lt;br&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E4%BF%A1%E5%8F%B7.png&quot; alt=&quot;enter description here&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;信号的概念&quot;&gt;&lt;a href=&quot;#信号的概念&quot; class=&quot;headerlink&quot; title=&quot;信号的概念&quot;&gt;&lt;/a&gt;信号的概念&lt;/h3&gt;&lt;p&gt;信号是在软件层次上对中断的一种模拟，所以通常把它称为是软中断。&lt;br&gt;首先，每个信号都有一个名字。这些名字都以三个字符&lt;strong&gt;SIG&lt;/strong&gt;开头。例如，&lt;strong&gt;SIGABRT&lt;/strong&gt;是夭折信号，当进程调用&lt;code&gt;abort&lt;/code&gt;函数时产生这种信号。&lt;br&gt;信号的定义在头文件&lt;code&gt;&amp;lt;signal.h&amp;gt;&lt;/code&gt;中这些信号都被定义为正整数，范围在1~64。其中1~32号信号是不可靠信号，33~64为前32种不可重入信号的可靠版本，其名称在不可靠信号名称加&lt;code&gt;R&lt;/code&gt;。我们可以通过命令&lt;code&gt;kill -l&lt;/code&gt;来查看Linux内核支持的信号，64中信号如下：&lt;br&gt;&lt;img src=&quot;http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E4%BF%A1%E5%8F%B7.png&quot; alt=&quot;enter description here&quot;&gt;&lt;/p&gt;
 &lt;h3 id=&quot;信号和中断的异同&quot;&gt;&lt;a href=&quot;#信号和中断的异同&quot; class=&quot;headerlink&quot; title=&quot;信号和中断的异同&quot;&gt;&lt;/a&gt;信号和中断的异同&lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;信号与中断的相似点：&lt;ol&gt;
 &lt;li&gt;采用了相同的异步通信方式；&lt;/li&gt;
