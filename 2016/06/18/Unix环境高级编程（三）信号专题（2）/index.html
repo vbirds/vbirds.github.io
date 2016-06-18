@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Unix环境高级编程（三）信号编程实践（2） | Vbirds&#39;s Blog</title>
+  <meta name="author" content="vbirds">
+  
+  <meta name="description" content="上一篇介绍了信号的概念，和基本的用法，这一章我们来介绍信号的发送，阻塞和未达等概念和用法，最后给一个实战例子。
+信号的发送信号的发送主要有以下几个函数：
+kill1234#include &amp;lt;sys/types.h&amp;gt;#include &amp;lt;signal.h&amp;gt;int kill(pid_t pid, int sig);
+kill的函数原型如上所示。其中pid指定进程，sig指定信号类型。参数组合情况如下：">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Unix环境高级编程（三）信号编程实践（2）"/>
+  <meta property="og:site_name" content="Vbirds&#39;s Blog"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">Vbirds&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Unix环境高级编程（三）信号编程实践（2）</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>上一篇介绍了信号的概念，和基本的用法，这一章我们来介绍信号的发送，阻塞和未达等概念和用法，最后给一个实战例子。</p>
+<h3 id="信号的发送"><a href="#信号的发送" class="headerlink" title="信号的发送"></a>信号的发送</h3><p>信号的发送主要有以下几个函数：</p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(pid_t pid, <span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>kill的函数原型如上所示。其中<code>pid</code>指定进程，<code>sig</code>指定信号类型。参数组合情况如下：<br><a id="more"></a><br>| pid&gt;0  | 将信号sig发给pid进程                                                                     |<br>| —— | —————————————————————————————- |<br>| pid=0  | 将信号sig发给同组进程                                                                    |<br>| pid=-1 | 将信号sig发送给所有进程，调用者进程有权限发送的每一个进程（除了1号进程之外，还有它自身） |<br>| pid&lt;-1 | 将信号sig发送给进程组是pid（绝对值）的每一个进程                                         |<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">myhandle</span><span class="params">(<span class="keyword">int</span> num)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (num == SIGINT)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"recv signal SIGINT \n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (num == SIGUSR1)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"recv signal SIGUSR1 \n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"recv signal id num : %d \n"</span>, num);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">pid_t</span> 	pid;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"main ....begin\n"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (signal(SIGINT, myhandle) == SIG_ERR)</span><br><span class="line">    &#123;</span><br><span class="line">    	perror(<span class="string">"func signal err\n"</span>);</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">if</span> (signal(SIGUSR1, myhandle) == SIG_ERR)</span><br><span class="line">    &#123;</span><br><span class="line">    	perror(<span class="string">"func signal err\n"</span>);</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"fork err....\n"</span>);</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//子进程向父进程发送信号</span></span><br><span class="line">    <span class="comment">//子进程向同组进程发送信号</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="comment">//pid = getpgrp();</span></span><br><span class="line">    	pid = getppid();</span><br><span class="line">    	<span class="comment">//kill(pid, SIGUSR1); //向老爹发信号</span></span><br><span class="line">    	kill(<span class="number">0</span>, SIGUSR1); <span class="comment">//向进程组发信号</span></span><br><span class="line">    	<span class="comment">//killpg(pid, SIGUSR1);</span></span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//子进程向父进程发送信号</span></span><br><span class="line">    <span class="comment">//子进程向同组进程发送信号</span></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">    	</span><br><span class="line">    	pid = getpgrp();</span><br><span class="line">    	pid = getppid();</span><br><span class="line">    	kill(-pid, SIGUSR1);</span><br><span class="line">    	kill(<span class="number">0</span>, SIGUSR1); <span class="comment">//向进程组发信号</span></span><br><span class="line">    	killpg(pid, SIGUSR1);</span><br><span class="line">    	<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">do</span> </span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"father begin sleep\n"</span>);</span><br><span class="line">    	n = sleep(n);</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"father wake up\n"</span>);</span><br><span class="line">    &#125; <span class="keyword">while</span> (n &gt; <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//sleep(n);</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sleep function end and return ...\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意，如果在fork之前安装信号，则子进程可以继承信号。</strong></p>
+<h4 id="raise"><a href="#raise" class="headerlink" title="raise"></a>raise</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">raise</span><span class="params">(<span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>raise 允许进程向自身发送信号。</p>
+<h4 id="kill-和-raise的区别"><a href="#kill-和-raise的区别" class="headerlink" title="kill 和 raise的区别"></a>kill 和 raise的区别</h4><ol>
+<li>kill既可以向自身发送信号，也可以向其他进程发送信号；</li>
+<li>raise函数向进程自身发送信号。</li>
+</ol>
+<h4 id="pause"><a href="#pause" class="headerlink" title="pause"></a>pause</h4><p>pause 将进程置为可中断睡眠状态。然后它调用内核函数schedule()，使linux进程调度器找到另一个进程来运行。pause使调用者进程挂起，直到一个信号被捕获。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> num)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"recv num:%d \n"</span>, num);</span><br><span class="line">    <span class="keyword">if</span>(num == SIGQUIT)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="comment">//exit(0);</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"main.....begin\n"</span>);</span><br><span class="line">    <span class="keyword">if</span>(signal(SIGINT, handler) == SIG_ERR)</span><br><span class="line">    &#123;</span><br><span class="line">    	perror(<span class="string">"func signal err\n"</span>);</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) </span><br><span class="line">    &#123;</span><br><span class="line">    	pause();</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"pause return\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h4><p>alarm函数，设置一个闹钟延迟发送信号，告诉linux内核n秒中以后，发送SIGALRM信号。<br>手册描述：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NAME</span><br><span class="line">       alarm - set an alarm clock for delivery of a signal</span><br><span class="line">SYNOPSIS</span><br><span class="line">       #include &lt;unistd.h&gt;</span><br><span class="line">       unsigned int alarm(unsigned int seconds);</span><br><span class="line">DESCRIPTION</span><br><span class="line">       alarm() arranges for a SIGALRM signal to be delivered to the process in seconds seconds.</span><br><span class="line">       If seconds is zero, no new alarm() is scheduled.</span><br><span class="line">       In any event any previously set alarm() is cancelled.</span><br></pre></td></tr></table></figure></p>
+<p>我们来做下面一个实验：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> _Teacher</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">&#125;Teacher;</span><br><span class="line"></span><br><span class="line">Teacher <span class="keyword">g_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> num)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"recv num:%d \n"</span>, num);</span><br><span class="line">    printfGlobTeacher();</span><br><span class="line">    alarm(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printfGlobTeacher</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"g_t.age:%d \n"</span>, <span class="keyword">g_t</span>.age);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"g_t.num:%d \n"</span>, <span class="keyword">g_t</span>.num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    Teacher t1,t2;</span><br><span class="line">    t1.age = <span class="number">30</span>;</span><br><span class="line">    t1.num = <span class="number">30</span>;</span><br><span class="line">    t2.age = <span class="number">40</span>;</span><br><span class="line">    t2.num = <span class="number">40</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"main.....begin\n"</span>);</span><br><span class="line">    <span class="keyword">if</span>(signal(SIGALRM, handler) == SIG_ERR)</span><br><span class="line">    &#123;</span><br><span class="line">    	perror(<span class="string">"func signal err\n"</span>);</span><br><span class="line">    	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    alarm(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>) </span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="keyword">g_t</span> = t1;</span><br><span class="line">    	<span class="keyword">g_t</span> = t2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在alarm的影响下，<code>g_t</code>将交替赋予t1或t2。运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ ./dm04_alarm</span><br><span class="line">main.....begin</span><br><span class="line">recv num:14 </span><br><span class="line">g_t.age:40 </span><br><span class="line">g_t.num:40 </span><br><span class="line">recv num:14 </span><br><span class="line">g_t.age:40 </span><br><span class="line">g_t.num:40 </span><br><span class="line">recv num:14 </span><br><span class="line">g_t.age:40 </span><br><span class="line">g_t.num:30 </span><br><span class="line">recv num:14 </span><br><span class="line">g_t.age:40 </span><br><span class="line">g_t.num:30</span><br></pre></td></tr></table></figure></p>
+<h4 id="信号处理函数遇上可重入和不可重入函数"><a href="#信号处理函数遇上可重入和不可重入函数" class="headerlink" title="信号处理函数遇上可重入和不可重入函数"></a>信号处理函数遇上可重入和不可重入函数</h4><p>为了增强程序的稳定性，在信号处理函数中应使用可重入函数。</p>
+<blockquote>
+<p>所谓可重入函数是指一个可以被多个任务调用的过程，任务在调用时不必担心数据是否会出错。因为进程在收到信号后，就将跳转到信号处理函数去接着执行。如果信号处理函数中使用了不可重入函数，那么信号处理函数可能会修改原来进程中不应该被修改的数据，这样进程从信号处理函数中返回接着执行时，可能会出现不可预料的后果。不可再入函数在信号处理函数中被视为不安全函数。</p>
+</blockquote>
+<p>满足下列条件的函数多数是不可再入的：</p>
+<ol>
+<li>使用静态的数据结构，如getlogin()，gmtime()，getgrgid()，getgrnam()，getpwuid()以及getpwnam()等等；</li>
+<li>函数实现时，调用了malloc（）或者free()函数；</li>
+<li>实现时使用了标准I/O函数的。</li>
+</ol>
+<p><strong>在信号处理函数中，尽量不使用全局变量和静态变量的函数。特别是这个变量在程序中随时读写。</strong></p>
+<h4 id="信号的阻塞和未达"><a href="#信号的阻塞和未达" class="headerlink" title="信号的阻塞和未达"></a>信号的阻塞和未达</h4><p>执行信号的处理动作称为信号<strong>递达（Delivery）</strong>，信号从产生到递达之间的状态，称为信号<strong>未决（Pending）</strong>。进程可以选择<strong>阻塞（Block）</strong>某个信号。被阻塞的信号产生时将保持在未决状态，直到进程解除对此信号的阻塞，才执行递达的动作。<br>注意，<strong>阻塞和忽略是不同</strong>，只要信号被阻塞就不会递达，而忽略是在递达之后可选的一种处理动作。信号在内核中的表示可以看作是这样的：</p>
+<p><img src="http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B%E4%BF%A1%E5%8F%B7%E5%9C%A8%E5%86%85%E6%A0%B8%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%A4%BA.png" alt="enter description here"></p>
+<h5 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h5><ol>
+<li>PCB进程控制块中函数有信号屏蔽状态字（block）信号未决状态字（pending）还有是否忽略标志；</li>
+<li>信号屏蔽状态字（block），1代表阻塞、0代表不阻塞；信号未决状态字（pending）的1代表未决，0代表信号可以抵达了；</li>
+<li>向进程发送SIGINT，内核首先判断信号屏蔽状态字是否阻塞，信号未决状态字（pending相应位制成1；若阻塞解除，信号未决状态字（pending）相应位制成0；表示信号可以抵达了。</li>
+<li>block状态字、pending状态字 64bit；</li>
+<li>block状态字用户可以读写，pending状态字用户只能读；这是信号设计机制。</li>
+</ol>
+<h5 id="信号集操作函数"><a href="#信号集操作函数" class="headerlink" title="信号集操作函数"></a>信号集操作函数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">int sigemptyset(sigset_t *set); //把信号集情况64bit/8=8个字节</span><br><span class="line">int sigfillset(sigset_t *set); //把信号集情况1</span><br><span class="line">int sigaddset(sigset_t *set, int signo); //根据signo，把信号集中的对应为置成1</span><br><span class="line">int sigdelset(sigset_t *set, int signo); //根据signo，把信号集中的对应为置成0</span><br><span class="line">int sigismember(const sigset_t *set, int signo);//判断signo是否在信号集中</span><br></pre></td></tr></table></figure>
+<p>sigprocmask读取或更改进程的信号屏蔽状态字（block）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;signal.h&gt;</span><br><span class="line">int sigprocmask(int how, const sigset_t *set, sigset_t *oset);</span><br></pre></td></tr></table></figure></p>
+<p>功能：读取或更改进程的信号屏蔽字。<br>返回值：若成功则为0，若出错则为-1<br>如果oset是非空指针，则读取进程的当前信号屏蔽字通过oset参数传出。如果set是非空指针，则更改进程的信号屏蔽字，参数how指示如何更改。如果oset和set都是非空指针，则先将原来的信号屏蔽字备份到oset里，然后根据set和how参数更改信号屏蔽字。假设当前的信号屏蔽字为mask，下表说明了how参数的可选值。</p>
+<h5 id="how含义"><a href="#how含义" class="headerlink" title="how含义"></a>how含义</h5><p><img src="http://7xsc1o.com1.z0.glb.clouddn.com/uninx/linux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8Bhow%E5%90%AB%E4%B9%89.png" alt="enter description here"></p>
+<h5 id="信号阻塞未达编程实践"><a href="#信号阻塞未达编程实践" class="headerlink" title="信号阻塞未达编程实践"></a>信号阻塞未达编程实践</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//演示信号从产生到抵达的整个过程</span></span><br><span class="line"><span class="comment">//信号的阻塞和解除阻塞综合实验</span></span><br><span class="line"><span class="comment">//设置信号阻塞和非阻塞，设置ctl+q来解除信号阻塞</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ERR_EXIT(m) \</span><br><span class="line">    do \</span><br><span class="line">    &#123; \</span><br><span class="line">    	perror(m); \</span><br><span class="line">    	exit(EXIT_FAILURE); \</span><br><span class="line">    &#125; while(0)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> sig)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> sig)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sig == SIGINT)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"recv a sig=%d\n"</span>, sig);</span><br><span class="line">    	<span class="built_in">printf</span>(<span class="string">"\n\n\n"</span>);</span><br><span class="line">    	<span class="comment">//fflush(stdout);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (sig == SIGQUIT)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="keyword">sigset_t</span> uset;</span><br><span class="line">    	sigemptyset(&amp;uset);</span><br><span class="line">    	sigaddset(&amp;uset, SIGINT);</span><br><span class="line">    	<span class="comment">//ctr + \ 用来接触  SIGINT 信号</span></span><br><span class="line">    	<span class="comment">//解除阻塞</span></span><br><span class="line">    	sigprocmask(SIG_UNBLOCK, &amp;uset, <span class="literal">NULL</span>);</span><br><span class="line">    	</span><br><span class="line">    	signal(SIGINT, SIG_DFL) ;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printsigset</span><span class="params">(sigset_t *<span class="built_in">set</span>)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i=<span class="number">1</span>; i&lt;NSIG; ++i)</span><br><span class="line">    &#123;</span><br><span class="line">    	<span class="keyword">if</span> (sigismember(<span class="built_in">set</span>, i))</span><br><span class="line">    		<span class="built_in">putchar</span>(<span class="string">'1'</span>);</span><br><span class="line">    	<span class="keyword">else</span></span><br><span class="line">    		<span class="built_in">putchar</span>(<span class="string">'0'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//测试显示 信号未达状态 关键字 + 注册SIGINT信号</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">sigset_t</span> pset;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">sigset_t</span> bset;</span><br><span class="line">    gemptyset(&amp;bset);</span><br><span class="line">    sigaddset(&amp;bset, SIGINT);</span><br><span class="line">    <span class="comment">//按照信号 信号因为没有阻塞直接抵达</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (signal(SIGINT, handler) == SIG_ERR)</span><br><span class="line">    	ERR_EXIT(<span class="string">"signal error"</span>);</span><br><span class="line">    	</span><br><span class="line">    <span class="keyword">if</span> (signal(SIGQUIT, handler) == SIG_ERR)</span><br><span class="line">    	ERR_EXIT(<span class="string">"signal error"</span>);</span><br><span class="line">    	sigprocmask(SIG_BLOCK, &amp;bset, <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (;;)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//获取信号未决  sigset_t字</span></span><br><span class="line">        sigpending(&amp;pset); </span><br><span class="line">        <span class="comment">//打印信号未决  sigset_t字</span></span><br><span class="line">        <span class="comment">//信号没有被阻塞，信号没有未决，所以没有东西</span></span><br><span class="line">        printsigset(&amp;pset);</span><br><span class="line">        sleep(<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/06/11/Linux信号专题（1）/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">留言</h2>
+
+  
+  	 <div class="ds-thread" data-thread-key="2016/06/18/Unix环境高级编程（三）信号专题（2）/" data-title="Unix环境高级编程（三）信号编程实践（2）" data-url="http://yoursite.com/2016/06/18/Unix环境高级编程（三）信号专题（2）/"></div>  
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-06-18 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/c-c/">c/c++<span>8</span></a></li> <li><a href="/categories/c-c/服务器开发/">服务器开发<span>4</span></a></li> <li><a href="/categories/c-c/服务器开发/unix-linux/">unix/linux<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/信号/">信号<span>2</span></a></li> <li><a href="/tags/c-c/">c/c++<span>8</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	   <a data-toggle="collapse" data-target="#toc"><i class="fa fa-bars"></i></a>
+	   <div id="toc" class="toc collapse in">
+			<ol class="toc-article"><li class="toc-article-item toc-article-level-3"><a class="toc-article-link" href="#信号的发送"><span class="toc-article-text">信号的发送</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#kill"><span class="toc-article-text">kill</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#raise"><span class="toc-article-text">raise</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#kill-和-raise的区别"><span class="toc-article-text">kill 和 raise的区别</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#pause"><span class="toc-article-text">pause</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#alarm"><span class="toc-article-text">alarm</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#信号处理函数遇上可重入和不可重入函数"><span class="toc-article-text">信号处理函数遇上可重入和不可重入函数</span></a></li><li class="toc-article-item toc-article-level-4"><a class="toc-article-link" href="#信号的阻塞和未达"><span class="toc-article-text">信号的阻塞和未达</span></a><ol class="toc-article-child"><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#说明"><span class="toc-article-text">说明</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#信号集操作函数"><span class="toc-article-text">信号集操作函数</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#how含义"><span class="toc-article-text">how含义</span></a></li><li class="toc-article-item toc-article-level-5"><a class="toc-article-link" href="#信号阻塞未达编程实践"><span class="toc-article-text">信号阻塞未达编程实践</span></a></li></ol></li></ol></li></ol>
+		</div>
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+<script type="text/javascript">
+  var duoshuoQuery = { short_name: 'vbirds' };
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';
+    ds.async = true;
+    ds.src = 'http://static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script>
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 vbirds
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

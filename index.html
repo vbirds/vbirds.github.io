@@ -107,6 +107,35 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2016-06-18 </div>
+			<div class="article-title"><a href="/2016/06/18/Unix环境高级编程（三）信号专题（2）/" >Unix环境高级编程（三）信号编程实践（2）</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+           
+              <div class="thumbnail"><a href="/2016/06/18/Unix环境高级编程（三）信号专题（2）/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/uninx%2Flinux%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8Buninx%E7%8E%AF%E5%A2%83%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B.jpg" alt="Unix环境高级编程（三）信号编程实践（2）"  class="nofancybox"></a>
+           
+		</div>
+	
+	
+		<p>上一篇介绍了信号的概念，和基本的用法，这一章我们来介绍信号的发送，阻塞和未达等概念和用法，最后给一个实战例子。</p>
+<h3 id="信号的发送"><a href="#信号的发送" class="headerlink" title="信号的发送"></a>信号的发送</h3><p>信号的发送主要有以下几个函数：</p>
+<h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">kill</span><span class="params">(pid_t pid, <span class="keyword">int</span> sig)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>kill的函数原型如上所示。其中<code>pid</code>指定进程，<code>sig</code>指定信号类型。参数组合情况如下：<br>
+	
+	</div>
+  <a type="button" href="/2016/06/18/Unix环境高级编程（三）信号专题（2）/#more" class="btn btn-default more">阅读此文</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2016-06-11 </div>
 			<div class="article-title"><a href="/2016/06/11/Linux信号专题（1）/" >Unix环境高级编程（三）信号专题（1）</a></div>						
 		</h3>
@@ -321,32 +350,6 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2016-05-24 </div>
-			<div class="article-title"><a href="/2016/05/24/STL学习（一）简介/" >STL学习（一）简介</a></div>						
-		</h3>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-           
-              <div class="thumbnail"><a href="/2016/05/24/STL学习（一）简介/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/c%2Fc%2B%2BSTL_.jpg" alt="STL学习（一）简介"  class="nofancybox"></a>
-           
-		</div>
-	
-	
-		<p><strong>STL（Standard TemplateLibrary）</strong>，即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI/ISOC++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。<br>
-	
-	</div>
-  <a type="button" href="/2016/05/24/STL学习（一）简介/#more" class="btn btn-default more">阅读此文</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2016-05-24 </div>
 			<div class="article-title"><a href="/2016/05/24/位运算/" >位运算</a></div>						
 		</h3>
 	
@@ -372,8 +375,8 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2016-04-13 </div>
-			<div class="article-title"><a href="/2016/04/13/python-批量下载图片/" >python   批量下载图片</a></div>						
+			<div class="date"> 2016-05-24 </div>
+			<div class="article-title"><a href="/2016/05/24/STL学习（一）简介/" >STL学习（一）简介</a></div>						
 		</h3>
 	
 
@@ -382,21 +385,15 @@
   <div class="row">
 	
            
-              <div class="thumbnail"><a href="/2016/04/13/python-批量下载图片/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/pythonpython.jpg" alt="python   批量下载图片"  class="nofancybox"></a>
+              <div class="thumbnail"><a href="/2016/05/24/STL学习（一）简介/"><img src="http://7xsc1o.com1.z0.glb.clouddn.com/c%2Fc%2B%2BSTL_.jpg" alt="STL学习（一）简介"  class="nofancybox"></a>
            
 		</div>
 	
 	
-		<p>首先我们先分析这个程序，这个程序的功能从网页批量下载图片，既然是网页下载，无非有这三个步骤：</p>
-<ol>
-<li>先得到网页。得到网页，以便程序分析网页中的图片连接。</li>
-<li>解析网页。分析网页，从中取出所有图片连接。</li>
-<li>下载。通过得到的图片连接下载图片。</li>
-</ol>
-<p>分析完成后我们开始编写程序：<br>
+		<p><strong>STL（Standard TemplateLibrary）</strong>，即标准模板库，是一个具有工业强度的，高效的C++程序库。它被容纳于C++标准程序库（C++ Standard Library）中，是ANSI/ISOC++标准中最新的也是极具革命性的一部分。该库包含了诸多在计算机科学领域里所常用的基本数据结构和基本算法。为广大C++程序员们提供了一个可扩展的应用框架，高度体现了软件的可复用性。<br>
 	
 	</div>
-  <a type="button" href="/2016/04/13/python-批量下载图片/#more" class="btn btn-default more">阅读此文</a>
+  <a type="button" href="/2016/05/24/STL学习（一）简介/#more" class="btn btn-default more">阅读此文</a>
 </div>
 
 		
@@ -452,17 +449,17 @@
 		
 			<li><a href="/categories/c-c/STL/">STL<span>2</span></a></li>
 		
-			<li><a href="/categories/c-c/">c/c++<span>7</span></a></li>
+			<li><a href="/categories/c-c/">c/c++<span>8</span></a></li>
 		
 			<li><a href="/categories/python/">python<span>1</span></a></li>
 		
-			<li><a href="/categories/c-c/服务器开发/unix-linux/">unix/linux<span>3</span></a></li>
+			<li><a href="/categories/c-c/服务器开发/unix-linux/">unix/linux<span>4</span></a></li>
 		
 			<li><a href="/categories/服务器开发/unix-linux/">unix/linux<span>1</span></a></li>
 		
 			<li><a href="/categories/开发配置/">开发配置<span>1</span></a></li>
 		
-			<li><a href="/categories/c-c/服务器开发/">服务器开发<span>3</span></a></li>
+			<li><a href="/categories/c-c/服务器开发/">服务器开发<span>4</span></a></li>
 		
 			<li><a href="/categories/服务器开发/">服务器开发<span>1</span></a></li>
 		
@@ -477,25 +474,25 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Qt/">Qt<span>1</span></a></li>
-		
-			<li><a href="/tags/STL/">STL<span>3</span></a></li>
-		
-			<li><a href="/tags/服务器开发/">服务器开发<span>2</span></a></li>
-		
 			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
-			<li><a href="/tags/信号/">信号<span>1</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
+			<li><a href="/tags/Qt/">Qt<span>1</span></a></li>
 		
 			<li><a href="/tags/unix-linux/">unix/linux<span>2</span></a></li>
 		
-			<li><a href="/tags/位运算/">位运算<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
 		
 			<li><a href="/tags/Boost/">Boost<span>1</span></a></li>
 		
-			<li><a href="/tags/c-c/">c/c++<span>7</span></a></li>
+			<li><a href="/tags/服务器开发/">服务器开发<span>2</span></a></li>
+		
+			<li><a href="/tags/信号/">信号<span>2</span></a></li>
+		
+			<li><a href="/tags/位运算/">位运算<span>1</span></a></li>
+		
+			<li><a href="/tags/c-c/">c/c++<span>8</span></a></li>
+		
+			<li><a href="/tags/STL/">STL<span>3</span></a></li>
 		
 		 
 		</ul>
@@ -507,6 +504,10 @@
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2016/06/18/Unix环境高级编程（三）信号专题（2）/" ><i class="fa fa-file-o"></i>Unix环境高级编程（三）信号编程实践（2）</a>
+      </li>
     
       <li>
         <a href="/2016/06/11/Linux信号专题（1）/" ><i class="fa fa-file-o"></i>Unix环境高级编程（三）信号专题（1）</a>
@@ -522,10 +523,6 @@
     
       <li>
         <a href="/2016/06/07/STL学习之容器（1）list（双向链表）/" ><i class="fa fa-file-o"></i>STL学习之容器（1）list（双向链表）</a>
-      </li>
-    
-      <li>
-        <a href="/2016/06/06/UNIX环境高级编程（二）进程控制（1）/" ><i class="fa fa-file-o"></i>UNIX环境高级编程（二）进程控制（1）</a>
       </li>
     
   </ul>
