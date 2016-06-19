@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Vbirds&#39;s Blog</title>
-  
+  <title>江泓政的官方网站</title>
+  <subtitle>Hello World</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
@@ -103,9 +103,9 @@
       <category term="unix/linux" scheme="http://yoursite.com/categories/c-c/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/unix-linux/"/>
     
     
-      <category term="信号" scheme="http://yoursite.com/tags/%E4%BF%A1%E5%8F%B7/"/>
-    
       <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
+    
+      <category term="信号" scheme="http://yoursite.com/tags/%E4%BF%A1%E5%8F%B7/"/>
     
   </entry>
   
@@ -255,9 +255,9 @@
       <category term="unix/linux" scheme="http://yoursite.com/categories/c-c/%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BC%80%E5%8F%91/unix-linux/"/>
     
     
-      <category term="信号" scheme="http://yoursite.com/tags/%E4%BF%A1%E5%8F%B7/"/>
-    
       <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
+    
+      <category term="信号" scheme="http://yoursite.com/tags/%E4%BF%A1%E5%8F%B7/"/>
     
   </entry>
   
@@ -478,9 +478,9 @@
       <category term="STL" scheme="http://yoursite.com/categories/c-c/STL/"/>
     
     
-      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
-    
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
+    
+      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
     
   </entry>
   
@@ -714,9 +714,9 @@
       <category term="STL" scheme="http://yoursite.com/categories/c-c/STL/"/>
     
     
-      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
-    
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
+    
+      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
     
   </entry>
   
@@ -892,9 +892,9 @@
       <category term="c/c++" scheme="http://yoursite.com/categories/c-c/"/>
     
     
-      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
-    
       <category term="STL" scheme="http://yoursite.com/tags/STL/"/>
+    
+      <category term="c/c++" scheme="http://yoursite.com/tags/c-c/"/>
     
   </entry>
   
